@@ -1,6 +1,5 @@
 package com.didactapp.didact.contracts;
 
-import com.didactapp.didact.entities.Book;
 import com.didactapp.didact.entities.Chapter;
 
 import java.util.List;
@@ -14,7 +13,7 @@ public interface ChapterContract {
 
         void hideChapters();
 
-        void openChapter(int chapterId);
+        void showChapterContent(int chapterId);
 
         void showSpinner();
 
@@ -34,6 +33,8 @@ public interface ChapterContract {
         void onChapterSelected(Chapter requestedChapter);
 
         void onChaptersLoaded(List<Chapter> chapterList);
+
+        void loadChapters();
 
 
     }

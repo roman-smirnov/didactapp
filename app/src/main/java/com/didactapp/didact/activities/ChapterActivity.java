@@ -8,21 +8,18 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.apkfuns.logutils.LogUtils;
 import com.didactapp.didact.R;
-import com.didactapp.didact.contracts.LibraryContract;
-import com.didactapp.didact.entities.Book;
-import com.didactapp.didact.network.RemoteGateway;
-import com.didactapp.didact.network.RemoteGatewayCallback;
-import com.didactapp.didact.presenters.LibraryPresenter;
-import com.didactapp.didact.recycler.RecyclerViewAdapter;
+import com.didactapp.didact.contracts.ChapterContract;
+import com.didactapp.didact.entities.Chapter;
+import com.didactapp.didact.presenters.ChapterPresenter;
+import com.didactapp.didact.recycler.RecyclerViewChapterAdapter;
 
 import java.util.List;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
-public class ChapterActivity extends BaseActivity implements LibraryContract.View, RemoteGatewayCallback {
+public class ChapterActivity extends BaseActivity implements ChapterContract.View {
 
     private static final int NUM_OF_COLUMNS = 1 ;
 
@@ -32,17 +29,17 @@ public class ChapterActivity extends BaseActivity implements LibraryContract.Vie
     private ProgressBar spinner;
     private TextView noNetwork;
     private TextView loadError;
-    private LibraryContract.Presenter presenter;
+    private ChapterContract.Presenter presenter;
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_library);
+        setContentView(R.layout.activity_chapter);
 
 
         /* get layout elements */
-        recycler = findViewById(R.id.books_grid);
+        recycler = findViewById(R.id.chapter_list);
         spinner = findViewById(R.id.progress_spinner);
         noNetwork = findViewById(R.id.no_network);
         loadError = findViewById(R.id.loading_error);
@@ -55,30 +52,28 @@ public class ChapterActivity extends BaseActivity implements LibraryContract.Vie
         recycler.addItemDecoration(new DividerItemDecoration(this, RecyclerView.HORIZONTAL));
 //        recycler.addOnItemTouchListener(this);
         /* init presenter */
-        presenter = new LibraryPresenter();
+        presenter = new ChapterPresenter();
         presenter.takeView(this);
-
-        /* fetch data from server */
-        RemoteGateway remoteGateway = RemoteGateway.getInstance();
-        remoteGateway.getBookList(this);
     }
 
     @Override
-    public void showBooks(List<Book> bookList) {
-        RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(this, bookList);
+    public void showChapters(List<Chapter> chapterList) {
+        RecyclerViewChapterAdapter recyclerViewAdapter = new RecyclerViewChapterAdapter(this, chapterList);
         recycler.swapAdapter(recyclerViewAdapter, false);
         recycler.setVisibility(VISIBLE);
     }
 
     @Override
-    public void hideBooks() {
+    public void hideChapters() {
         recycler.setVisibility(GONE);
     }
 
     @Override
-    public void showBookDetailsUi(String bookId) {
+    public void showChapterContent(int chapterId) {
         launchActivity(this, LibraryDetailActivity.class);
+
     }
+
 
     @Override
     public void showSpinner() {
@@ -114,21 +109,4 @@ public class ChapterActivity extends BaseActivity implements LibraryContract.Vie
 
     }
 
-
-    @Override
-    public void onLoadSuccess(List<Book> bookList) {
-        presenter.onBooksLoaded(bookList);
-    }
-
-    @Override
-    public void onDataNotAvailable() {
-        LogUtils.d("data not available");
-    }
-
-    @Override
-    public void onLoadFailed() {
-        LogUtils.d("load failed");
-    }
-
-    /* handle recyclerview item touch */
 }

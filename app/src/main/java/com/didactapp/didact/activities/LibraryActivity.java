@@ -5,8 +5,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.MotionEvent;
-import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -14,17 +12,17 @@ import com.apkfuns.logutils.LogUtils;
 import com.didactapp.didact.R;
 import com.didactapp.didact.contracts.LibraryContract;
 import com.didactapp.didact.entities.Book;
-import com.didactapp.didact.network.RemoteGateway;
-import com.didactapp.didact.network.RemoteGatewayCallback;
+import com.didactapp.didact.network.book.BookRemoteGateway;
+import com.didactapp.didact.network.book.BookRemoteGatewayCallback;
 import com.didactapp.didact.presenters.LibraryPresenter;
-import com.didactapp.didact.recycler.RecyclerViewAdapter;
+import com.didactapp.didact.recycler.RecyclerViewBookAdapter;
 
 import java.util.List;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
-public class LibraryActivity extends BaseActivity implements LibraryContract.View, RemoteGatewayCallback {
+public class LibraryActivity extends BaseActivity implements LibraryContract.View, BookRemoteGatewayCallback {
 
     private static final int NUM_OF_COLUMNS = 2;
 
@@ -61,13 +59,13 @@ public class LibraryActivity extends BaseActivity implements LibraryContract.Vie
         presenter.takeView(this);
 
         /* fetch data from server */
-        RemoteGateway remoteGateway = RemoteGateway.getInstance();
+        BookRemoteGateway remoteGateway = BookRemoteGateway.getInstance();
         remoteGateway.getBookList(this);
     }
 
     @Override
     public void showBooks(List<Book> bookList) {
-        RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(this, bookList);
+        RecyclerViewBookAdapter recyclerViewAdapter = new RecyclerViewBookAdapter(this, bookList);
         recycler.swapAdapter(recyclerViewAdapter, false);
         recycler.setVisibility(VISIBLE);
     }

@@ -1,39 +1,42 @@
 package com.didactapp.didact.presenters;
 
-import com.didactapp.didact.contracts.LibraryContract;
-import com.didactapp.didact.entities.Book;
+import com.didactapp.didact.contracts.ChapterContract;
+import com.didactapp.didact.entities.Chapter;
 
 import java.util.List;
 
 /**
  * class to handle books presentation logic
  */
-public final class ChapterPresenter implements LibraryContract.Presenter{
-    private LibraryContract.View view;
+public final class ChapterPresenter implements ChapterContract.Presenter {
+    private ChapterContract.View view;
 
-    public void loadBooks() {
-        view.showSpinner();
-        view.hideSpinner();
+
+    @Override
+    public void onChapterSelected(Chapter requestedChapter) {
+        view.showChapterContent(requestedChapter.getChapterId());
     }
 
     @Override
-    public void openBookDetails(Book requestedBook) {
-//        view.showBookDetailsUi();
+    public void onChaptersLoaded(List<Chapter> chapterList) {
+        view.showChapters(chapterList);
     }
 
     @Override
-    public void onBooksLoaded(List<Book> bookList) {
-        view.showBooks(bookList);
-    }
-
-    @Override
-    public void takeView(LibraryContract.View view) {
+    public void takeView(ChapterContract.View view) {
         this.view = view;
-        loadBooks();
+        loadChapters();
     }
 
     @Override
     public void dropView() {
         view = null;
+    }
+
+    @Override
+    public void loadChapters() {
+        view.showSpinner();
+
+        view.hideSpinner();
     }
 }
