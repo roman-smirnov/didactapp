@@ -1,0 +1,112 @@
+[
+  {
+    "bookId": 9,
+    "title": "Unauthorized Harry Potter Book Seven News: \"Half-Blood Prince\" Analysis and Speculation",
+    "coverUrl": "https:\/didactapp.com\/api\/images\/",
+    "thumbnailUrl": "https:\/didactapp.com\/api\/images\/",
+    "publishedDate": 1520860000,
+    "revisionDate": 1520820000,
+    "tagLine": "it's about space adventures",
+    "description": "here's what you'll learn:",
+    "version": 2
+  },
+  {
+    "bookId": 8,
+    "title": "Harry Potter Boxed Set, Books 1-5 (Harry Potter, #1-5)",
+    "coverUrl": "https:\/didactapp.com\/api\/images\/",
+    "thumbnailUrl": "https:\/didactapp.com\/api\/images\/",
+    "publishedDate": 1520860000,
+    "revisionDate": 1520820000,
+    "tagLine": "it's about space adventures",
+    "description": "here's what you'll learn:",
+    "version": 2
+  },
+  {
+    "bookId": 3,
+    "title": "Harry Potter and the Sorcerer's Stone",
+    "coverUrl": "https:\/didactapp.com\/api\/images\/",
+    "thumbnailUrl": "https:\/didactapp.com\/api\/images\/",
+    "publishedDate": 1520860000,
+    "revisionDate": 1520820000,
+    "tagLine": "it's about space adventures",
+    "description": "here's what you'll learn:",
+    "version": 2
+  },
+  {
+    "bookId": 1,
+    "title": "Harry Potter and the Half-Blood Prince (Harry Potter, #6)",
+    "coverUrl": "https:\/didactapp.com\/api\/images\/",
+    "thumbnailUrl": "https:\/didactapp.com\/api\/images\/",
+    "publishedDate": 1520860000,
+    "revisionDate": 1520820000,
+    "tagLine": "it's about space adventures",
+    "description": "here's what you'll learn:",
+    "version": 2
+  },
+  {
+    "bookId": 2,
+    "title": "Harry Potter and the Order of the Phoenix (Harry Potter, #5)",
+    "coverUrl": "https:\/didactapp.com\/api\/images\/",
+    "thumbnailUrl": "https:\/didactapp.com\/api\/images\/",
+    "publishedDate": 1520860000,
+    "revisionDate": 1520820000,
+    "tagLine": "it's about space adventures",
+    "description": "here's what you'll learn:",
+    "version": 2
+  },
+  {
+    "bookId": 4,
+    "title": "Harry Potter and the Chamber of Secrets (Harry Potter, #2)",
+    "coverUrl": "https:\/didactapp.com\/api\/images\/",
+    "thumbnailUrl": "https:\/didactapp.com\/api\/images\/",
+    "publishedDate": 1520860000,
+    "revisionDate": 1520820000,
+    "tagLine": "it's about space adventures",
+    "description": "here's what you'll learn:",
+    "version": 2
+  },
+  {
+    "bookId": 7,
+    "title": "The Harry Potter Collection (Harry Potter, #1-6)",
+    "coverUrl": "https:\/didactapp.com\/api\/images\/",
+    "thumbnailUrl": "https:\/didactapp.com\/api\/images\/",
+    "publishedDate": 1520860000,
+    "revisionDate": 1520820000,
+    "tagLine": "it's about space adventures",
+    "description": "here's what you'll learn:",
+    "version": 2
+  },
+  {
+    "bookId": 5,
+    "title": "Harry Potter and the Prisoner of Azkaban (Harry Potter, #3)",
+    "coverUrl": "https:\/didactapp.com\/api\/images\/",
+    "thumbnailUrl": "https:\/didactapp.com\/api\/images\/",
+    "publishedDate": 1520860000,
+    "revisionDate": 1520820000,
+    "tagLine": "it's about space adventures",
+    "description": "here's what you'll learn:",
+    "version": 2
+  },
+  {
+    "bookId": 8053,
+    "title": "Charlie Oink (Easy Peasy People)",
+    "coverUrl": "https:\/didactapp.com\/api\/images\/",
+    "thumbnailUrl": "https:\/didactapp.com\/api\/images\/",
+    "publishedDate": 1520860000,
+    "revisionDate": 1520820000,
+    "tagLine": "it's about space adventures",
+    "description": "here's what you'll learn:",
+    "version": 2
+  },
+  {
+    "bookId": 6,
+    "title": "Harry Potter and the Goblet of Fire (Harry Potter, #4)",
+    "coverUrl": "https:\/didactapp.com\/api\/images\/",
+    "thumbnailUrl": "https:\/didactapp.com\/api\/images\/",
+    "publishedDate": 1520860000,
+    "revisionDate": 1520820000,
+    "tagLine": "it's about space adventures",
+    "description": "here's what you'll learn:",
+    "version": 2
+  }
+]

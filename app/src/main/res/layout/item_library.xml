@@ -1,0 +1,34 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/card_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/book_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/content_desc_cover_image"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_book" />
+
+    <TextView
+        android:id="@+id/book_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingTop="@dimen/layout_item_divider"
+        android:text="@string/placeholder_title" />
+
+    <TextView
+        android:id="@+id/book_tagline"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingTop="@dimen/layout_item_divider"
+        android:text="@string/placeholder_tagline"
+        android:textSize="@dimen/typography_body2" />
+
+</LinearLayout>

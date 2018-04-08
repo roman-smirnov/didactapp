@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+    <!-- Typography -->
+    <dimen name="typography_button">15sp</dimen>
+    <dimen name="typography_caption">13sp</dimen>
+    <dimen name="typography_body1">15sp</dimen>
+    <dimen name="typography_body2">15sp</dimen>
+    <!-- these are large -->
+    <dimen name="typography_subheading">17sp</dimen>
+    <dimen name="typography_title">21sp</dimen>
+    <dimen name="typography_headline">24sp</dimen>
+    <!-- these are gigantic -->
+    <dimen name="typography_display1">34sp</dimen>
+    <dimen name="typography_display2">45sp</dimen>
+    <dimen name="typography_display3">56sp</dimen>
+    <dimen name="typography_display4">112sp</dimen>
+
+    <!-- general horizontal margins -->
+    <dimen name="screen_edge_margin">16dp</dimen>
+    <dimen name="horizontal_margin">16dp</dimen>
+    <dimen name="vertical_margin">16dp</dimen>
+    <dimen name="screen_edge_content_margin">72dp</dimen>
+
+    <!-- unrelated content area divider -->
+    <dimen name="layout_content_divider">8dp</dimen>
+    <!-- grid list divider -->
+    <dimen name="layout_grid_divider">4dp</dimen>
+    <!-- divider between related content items -->
+    <dimen name="layout_item_divider">1dp</dimen>
+
+    <!-- status bar and app bar -->
+    <dimen name="layout_status_bar_height">24dp</dimen>
+    <dimen name="app_bar_horizontal_padding">16dp</dimen>
+    <dimen name="app_bar_icon_padding">16dp</dimen>
+    <dimen name="app_bar_title_left_padding">72dp</dimen>
+    <dimen name="app_bar_title_bottom_padding">20dp</dimen>
+
+    <!-- subtitle component below appbar-->
+    <dimen name="layout_vertical_spacing_subtitle">48dp</dimen>
+
+    <!-- Buttons -->
+    <dimen name="button_height">36dp</dimen>
+    <dimen name="button_min_width">88dp</dimen>
+    <dimen name="button_corner_radius">2dp</dimen>
+    <dimen name="button_text_left_and_right_padding">16dp</dimen>
+    <!-- button text size -->
+    <dimen name="button_text_size">14pt</dimen>
+
+    <!-- Lists-->
+    <dimen name="list_item_height">72dp</dimen>
+
+    <!-- Grid Lists -->
+    <dimen name="grid_list_footer_height">68dp</dimen>
+    <dimen name="grid_list_vertical_text_padding">16dp</dimen>
+    <dimen name="grid_list_text_size">16sp</dimen>
+
+    <dimen name="spinner_size">160dp</dimen>
+
+</resources>

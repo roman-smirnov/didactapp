@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">Didact</string>
+
+    <!-- error messages -->
+    <string name="error_no_network">No network connection</string>
+    <string name="error_loading_books">Can\'t load books</string>
+
+    <!-- content descriptions -->
+    <string name="content_desc_cover_image">Book cover image</string>
+
+    <!-- default placeholder texts -->
+    <string name="placeholder_title">Untitled</string>
+    <string name="placeholder_tagline">Tagline unavailable</string>
+    <string name="placeholder_description">No Description</string>
+    <string name="placeholder_author">Unknown author</string>
+    <string name="placeholder_date">dd/mm/yy</string>
+    <string name="placeholder_version">version</string>
+    <string name="app_icon">application icon</string>
+    <string name="password_hint">Your password goes here</string>
+    <string name="login">Log in</string>
+    <string name="new_password_hint">New password goes here</string>
+    <string name="register">Register</string>
+    <string name="welcome_text">Welcome to Didact</string>
+    <string name="login_register_separator">or</string>
+
+    <!-- registration-->
+    <string name="new_password_repeat_hint">Password</string>
+    <string name="new_email_hint">Email</string>
+    <string name="register_for_didact_app">Register New Account </string>
+    <string name="chapter_thumbnail_image">chapter thumbnail image</string>
+
+</resources>
