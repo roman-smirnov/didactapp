@@ -25,7 +25,6 @@ public final class ChapterPresenter implements ChapterContract.Presenter {
     @Override
     public void takeView(ChapterContract.View view) {
         this.view = view;
-        loadChapters();
     }
 
     @Override
@@ -36,7 +35,7 @@ public final class ChapterPresenter implements ChapterContract.Presenter {
     @Override
     public void loadChapters() {
         view.showSpinner();
-
+// do stuff
         view.hideSpinner();
     }
 }

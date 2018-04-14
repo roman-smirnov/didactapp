@@ -12,7 +12,7 @@
         android:scrollbars="vertical"
         android:visibility="gone"
         app:layoutManager="android.support.v7.widget.GridLayoutManager"
-        app:spanCount="2"
+        app:spanCount="1"
         tools:listitem="@layout/item_library" />
 
     <TextView

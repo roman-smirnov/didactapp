@@ -9,11 +9,11 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.didactapp.didact.R;
-import com.didactapp.didact.contracts.ChapterContract;
-import com.didactapp.didact.entities.Chapter;
-import com.didactapp.didact.network.chapter.ChapterRemoteGateway;
-import com.didactapp.didact.network.chapter.ChapterRemoteGatewayCallback;
-import com.didactapp.didact.presenters.ChapterPresenter;
+import com.didactapp.didact.contracts.SectionContract;
+import com.didactapp.didact.entities.Section;
+import com.didactapp.didact.network.section.SectionRemoteGateway;
+import com.didactapp.didact.network.section.SectionRemoteGatewayCallback;
+import com.didactapp.didact.presenters.SectionPresenter;
 import com.didactapp.didact.recycler.RecyclerViewChapterAdapter;
 
 import java.util.List;
@@ -21,17 +21,15 @@ import java.util.List;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
-public class ChapterActivity extends BaseActivity implements ChapterContract.View, ChapterRemoteGatewayCallback {
+public class SectionActivity extends BaseActivity implements SectionContract.View, SectionRemoteGatewayCallback {
 
-    private static final int NUM_OF_COLUMNS = 1 ;
-
-
+    private static final int NUM_OF_COLUMNS = 1;
 
     private RecyclerView recycler;
     private ProgressBar spinner;
     private TextView noNetwork;
     private TextView loadError;
-    private ChapterContract.Presenter presenter;
+    private SectionContract.Presenter presenter;
 
 
     @Override
@@ -54,32 +52,25 @@ public class ChapterActivity extends BaseActivity implements ChapterContract.Vie
         recycler.addItemDecoration(new DividerItemDecoration(this, RecyclerView.HORIZONTAL));
 //        recycler.addOnItemTouchListener(this);
         /* init presenter */
-        presenter = new ChapterPresenter();
+        presenter = new SectionPresenter();
         presenter.takeView(this);
 
         /* fetch data from server */
-        ChapterRemoteGateway remoteGateway = ChapterRemoteGateway.getInstance();
-        remoteGateway.getChapterList(this);
+        SectionRemoteGateway remoteGateway = SectionRemoteGateway.getInstance();
+        remoteGateway.getSectionList(this);
     }
 
     @Override
-    public void showChapters(List<Chapter> chapterList) {
-        RecyclerViewChapterAdapter recyclerViewAdapter = new RecyclerViewChapterAdapter(this, chapterList);
+    public void showSections(List<Section> sectionList) {
+        RecyclerViewChapterAdapter recyclerViewAdapter = new RecyclerViewChapterAdapter(this, sectionList);
         recycler.swapAdapter(recyclerViewAdapter, false);
         recycler.setVisibility(VISIBLE);
     }
 
     @Override
-    public void hideChapters() {
+    public void hideSections() {
         recycler.setVisibility(GONE);
     }
-
-    @Override
-    public void showChapterContent(int chapterId) {
-        launchActivity(this, LibraryDetailActivity.class);
-
-    }
-
 
     @Override
     public void showSpinner() {
@@ -115,9 +106,10 @@ public class ChapterActivity extends BaseActivity implements ChapterContract.Vie
 
     }
 
+
     @Override
-    public void onLoadSuccess(List<Chapter> chapterList) {
-        presenter.onChaptersLoaded(chapterList);
+    public void onLoadSuccess(List<Section> sectionList) {
+        presenter.onSectionsLoaded(sectionList);
     }
 
     @Override

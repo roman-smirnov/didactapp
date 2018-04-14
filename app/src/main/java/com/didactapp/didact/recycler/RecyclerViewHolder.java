@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 import com.didactapp.didact.R;
 
-
+// TODO: remove this class
 class RecyclerViewHolder extends RecyclerView.ViewHolder {
 
     ImageView image;

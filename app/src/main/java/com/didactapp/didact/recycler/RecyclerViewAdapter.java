@@ -13,7 +13,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-
+// TODO: remove this class
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder> {
     private List<Book> bookList;
     private Context context;

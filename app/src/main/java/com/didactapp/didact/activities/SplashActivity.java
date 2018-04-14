@@ -25,7 +25,7 @@ public class SplashActivity extends BaseActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                launchActivity(SplashActivity.this, LoginActivity.class);
+                launchActivity(SplashActivity.this, ChapterActivity.class);
                 finish();
             }
         }, SPLASH_DELAY_MILLIS);

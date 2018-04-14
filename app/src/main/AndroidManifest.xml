@@ -20,10 +20,12 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activities.LibraryActivity" />
         <activity android:name=".activities.LoginActivity" />
         <activity android:name=".activities.RegisterActivity" />
 
+        <activity android:name=".activities.LibraryActivity" />
         <activity android:name=".activities.LibraryDetailActivity" />
+
+        <activity android:name=".activities.ChapterActivity" />
     </application>
 </manifest>

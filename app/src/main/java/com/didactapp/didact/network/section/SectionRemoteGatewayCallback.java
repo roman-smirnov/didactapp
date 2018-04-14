@@ -1,18 +1,18 @@
-package com.didactapp.didact.network;
+package com.didactapp.didact.network.section;
 
-import com.didactapp.didact.entities.Book;
+import com.didactapp.didact.entities.Chapter;
 
 import java.util.List;
 
 /**
  * an interface that should be implemented by clients that ask for Data from {@code ApiManager}
  */
-public interface RemoteGatewayCallback {
+public interface SectionRemoteGatewayCallback {
 
     /**
      * Fetch request succeeded.
      */
-    void onLoadSuccess(List<Book> bookList);
+    void onLoadSuccess(List<Chapter> chapterList);
 
 
     /**

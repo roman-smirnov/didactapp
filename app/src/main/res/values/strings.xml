@@ -28,5 +28,6 @@
     <string name="new_email_hint">Email</string>
     <string name="register_for_didact_app">Register New Account </string>
     <string name="chapter_thumbnail_image">chapter thumbnail image</string>
+    <string name="one">1</string>
 
 </resources>

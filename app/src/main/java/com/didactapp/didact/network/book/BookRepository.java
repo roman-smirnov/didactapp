@@ -26,7 +26,7 @@ package com.didactapp.didact.network.book;// TODO: a repository is required for 
 //
 //
 //    @Override
-//    public void getBookList(@NonNull ChapterRemoteGatewayCallback callback) {
+//    public void getBookList(@NonNull SectionRemoteGatewayCallback callback) {
 //
 //    }
 //

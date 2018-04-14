@@ -1,9 +1,11 @@
-package com.didactapp.didact.network;
+package com.didactapp.didact.network.section;
 
 import android.support.annotation.NonNull;
 
 import com.apkfuns.logutils.LogUtils;
-import com.didactapp.didact.entities.Book;
+import com.didactapp.didact.entities.Chapter;
+import com.didactapp.didact.network.ApiClient;
+import com.didactapp.didact.network.ApiInterface;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
@@ -16,42 +18,42 @@ import retrofit2.Response;
  * Created by roman on 12/03/2018.
  */
 
-public class RemoteGateway implements BookDataSource, Callback<List<Book>> {
+public class SectionRemoteGateway implements SectionDataSource, Callback<List<Chapter>> {
 
-    private static RemoteGateway INSTANCE = null;
+    private static SectionRemoteGateway INSTANCE = null;
 
-    private WeakReference<RemoteGatewayCallback> callback = null;
+    private WeakReference<SectionRemoteGatewayCallback> callback = null;
 
-    private RemoteGateway() {
+    private SectionRemoteGateway() {
     }
 
 
-    public static RemoteGateway getInstance() {
+    public static SectionRemoteGateway getInstance() {
         if (INSTANCE == null) {
-            INSTANCE = new RemoteGateway();
+            INSTANCE = new SectionRemoteGateway();
         }
         return INSTANCE;
     }
 
 
     @Override
-    public void getBookList(@NonNull RemoteGatewayCallback callback) {
+    public void getSectionList(@NonNull SectionRemoteGatewayCallback callback) {
 
         this.callback = new WeakReference<>(callback);
-        Call<List<Book>> call;
+        Call<List<Chapter>> call;
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        call = apiInterface.getBookList();
+        call = apiInterface.getChapterList();
         call.enqueue(this);
 
     }
 
     @Override
-    public void onResponse(Call<List<Book>> call, Response<List<Book>> response) {
+    public void onResponse(Call<List<Chapter>> call, Response<List<Chapter>> response) {
         if (callback != null && callback.get() != null) {
             // response.isSuccessful() is true if the response code is 2xx
             if (response.isSuccessful()) {
-                List<Book> bookList = response.body();
-                callback.get().onLoadSuccess(bookList);
+                List<Chapter> chapterList = response.body();
+                callback.get().onLoadSuccess(chapterList);
 
             } else if (response.body() == null || response.body().isEmpty()) {
                 callback.get().onDataNotAvailable();
@@ -64,8 +66,8 @@ public class RemoteGateway implements BookDataSource, Callback<List<Book>> {
     }
 
     @Override
-    public void onFailure(Call<List<Book>> call, Throwable t) {
-        RemoteGatewayCallback req = null;
+    public void onFailure(Call<List<Chapter>> call, Throwable t) {
+        SectionRemoteGatewayCallback req = null;
         if (callback != null) {
             req = callback.get();
         }
