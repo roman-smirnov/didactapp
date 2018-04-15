@@ -33,7 +33,7 @@
         android:layout_gravity="center"
         android:drawableBottom="@drawable/ic_sad"
         android:gravity="center"
-        android:text="@string/error_loading_books"
+        android:text="@string/error_loading"
         android:textSize="@dimen/typography_body1"
         android:visibility="gone" />
 

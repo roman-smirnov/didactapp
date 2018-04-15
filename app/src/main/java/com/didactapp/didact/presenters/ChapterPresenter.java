@@ -33,6 +33,21 @@ public final class ChapterPresenter implements ChapterContract.Presenter {
     }
 
     @Override
+    public void networkDisconnected() {
+
+    }
+
+    @Override
+    public void networkConnected() {
+
+    }
+
+    @Override
+    public void update() {
+
+    }
+
+    @Override
     public void loadChapters() {
         view.showSpinner();
 // do stuff

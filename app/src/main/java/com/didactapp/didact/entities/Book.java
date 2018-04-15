@@ -12,4 +12,6 @@ public final class Book extends BookModel {
         super(bookId, coverUrl, thumbnailUrl, title, tagLine, description, publishedDate, revisionDate, version);
 
     }
+
+
 }

@@ -3,7 +3,7 @@
 
     <!-- error messages -->
     <string name="error_no_network">No network connection</string>
-    <string name="error_loading_books">Can\'t load books</string>
+    <string name="error_loading">Loading error </string>
 
     <!-- content descriptions -->
     <string name="content_desc_cover_image">Book cover image</string>
@@ -29,5 +29,6 @@
     <string name="register_for_didact_app">Register New Account </string>
     <string name="chapter_thumbnail_image">chapter thumbnail image</string>
     <string name="one">1</string>
+    <string name="no_content">Nothing to show</string>
 
 </resources>

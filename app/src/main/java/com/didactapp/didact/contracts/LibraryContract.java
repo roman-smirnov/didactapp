@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface LibraryContract {
 
-    interface View extends BaseView<Presenter> {
+    interface View extends BaseView<Presenter>, android.view.View.OnClickListener {
 
         void showBooks(List<Book> bookList);
 
@@ -15,25 +15,13 @@ public interface LibraryContract {
 
         void showBookDetailsUi(String bookId);
 
-        void showSpinner();
 
-        void hideSpinner();
-
-        void showLoadError();
-
-        void hideLoadError();
-
-        void showNoNetwork();
-
-        void hideNoNetwork();
 
     }
 
     interface Presenter extends BasePresenter<View> {
+
         void openBookDetails(Book requestedBook);
-
-        void onBooksLoaded(List<Book> bookList);
-
 
     }
 

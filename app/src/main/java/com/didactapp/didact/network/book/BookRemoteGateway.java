@@ -18,7 +18,7 @@ import retrofit2.Response;
  * Created by roman on 12/03/2018.
  */
 
-public class BookRemoteGateway implements BookDataSource, Callback<List<Book>> {
+public class BookRemoteGateway implements BookRemoteDataSource, Callback<List<Book>> {
 
     private static BookRemoteGateway INSTANCE = null;
 
@@ -53,15 +53,15 @@ public class BookRemoteGateway implements BookDataSource, Callback<List<Book>> {
             // response.isSuccessful() is true if the response code is 2xx
             if (response.isSuccessful()) {
                 List<Book> bookList = response.body();
-                callback.get().onLoadSuccess(bookList);
+                callback.get().onRemoteLoadRSuccess(bookList);
 
             } else if (response.body() == null || response.body().isEmpty()) {
-                callback.get().onDataNotAvailable();
+                callback.get().onRemoteDataNotAvailable();
             }
         } else {
             // TODO: handle error cases
             LogUtils.d("error status code returned");
-            callback.get().onLoadFailed();
+            callback.get().onRemoteLoadFailed();
         }
     }
 
@@ -72,7 +72,7 @@ public class BookRemoteGateway implements BookDataSource, Callback<List<Book>> {
             req = callback.get();
         }
         if (req != null) {
-            req.onLoadFailed();
+            req.onRemoteLoadFailed();
         }
     }
 

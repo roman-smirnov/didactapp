@@ -7,12 +7,13 @@ import com.didactapp.didact.R;
 
 public class SplashActivity extends BaseActivity {
 
-    private static final int SPLASH_DELAY_MILLIS = 3000;
+    private static final int SPLASH_DELAY_MILLIS = 1000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+
     }
 
     @Override
@@ -25,10 +26,11 @@ public class SplashActivity extends BaseActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                launchActivity(SplashActivity.this, ChapterActivity.class);
+                launchActivity(SplashActivity.this, LibraryActivity.class);
                 finish();
             }
         }, SPLASH_DELAY_MILLIS);
     }
+
 
 }

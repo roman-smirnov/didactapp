@@ -76,7 +76,7 @@ public class ChapterActivity extends BaseActivity implements ChapterContract.Vie
 
     @Override
     public void showChapterContent(int chapterId) {
-        launchActivity(this, LibraryDetailActivity.class);
+        launchActivity(this, SectionActivity.class);
 
     }
 
@@ -113,6 +113,25 @@ public class ChapterActivity extends BaseActivity implements ChapterContract.Vie
     public void hideNoNetwork() {
         noNetwork.setVisibility(GONE);
 
+    }
+
+    @Override
+    public void showNoContent() {
+
+    }
+
+    @Override
+    public void hideNoContent() {
+
+    }
+
+    @Override
+    public void checkNetworkState() {
+        if (isNetworkConnected()) {
+            presenter.networkConnected();
+        } else {
+            presenter.networkDisconnected();
+        }
     }
 
     @Override

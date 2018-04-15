@@ -9,17 +9,17 @@ package com.didactapp.didact.network;// TODO: a repository is required for using
 // * Created by roman on 12/03/2018.
 // */
 //
-//public class BookRepository implements BookDataSource {
+//public class BookRepository implements BookRemoteDataSource {
 //
 //    private static BookRepository INSTANCE = null;
 //
 //    @NonNull
-//    private final BookDataSource remoteDataSource;
+//    private final BookRemoteDataSource remoteDataSource;
 //
 //    @NonNull
-//    private final BookDataSource localDataSource;
+//    private final BookRemoteDataSource localDataSource;
 //
-//    public BookRepository(@NonNull BookDataSource remoteDataSource, @NonNull BookDataSource localDataSource) {
+//    public BookRepository(@NonNull BookRemoteDataSource remoteDataSource, @NonNull BookRemoteDataSource localDataSource) {
 //        this.remoteDataSource = remoteDataSource;
 //        this.localDataSource = localDataSource;
 //    }
@@ -30,7 +30,7 @@ package com.didactapp.didact.network;// TODO: a repository is required for using
 //
 //    }
 //
-//    public static BookRepository getInstance(BookDataSource remoteDataSource, BookDataSource localDataSource) {
+//    public static BookRepository getInstance(BookRemoteDataSource remoteDataSource, BookRemoteDataSource localDataSource) {
 //        if (INSTANCE == null) {
 //            INSTANCE = new BookRepository(remoteDataSource, localDataSource);
 //        }

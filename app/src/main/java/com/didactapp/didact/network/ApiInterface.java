@@ -2,6 +2,7 @@ package com.didactapp.didact.network;
 
 import com.didactapp.didact.entities.Book;
 import com.didactapp.didact.entities.Chapter;
+import com.didactapp.didact.entities.Section;
 
 import java.util.List;
 
@@ -16,4 +17,7 @@ public interface ApiInterface {
 
     @GET("chapters.json")
     Call<List<Chapter>> getChapterList();
+
+    @GET("section.json")
+    Call<List<Section>> getSectionList();
 }

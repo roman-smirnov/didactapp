@@ -2,18 +2,19 @@ package com.didactapp.didact.activities;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.ProgressBar;
+import android.view.View;
 import android.widget.TextView;
 
-import com.apkfuns.logutils.LogUtils;
 import com.didactapp.didact.R;
 import com.didactapp.didact.contracts.LibraryContract;
 import com.didactapp.didact.entities.Book;
 import com.didactapp.didact.network.book.BookRemoteGateway;
-import com.didactapp.didact.network.book.BookRemoteGatewayCallback;
+import com.didactapp.didact.persistence.BookLocalGateway;
 import com.didactapp.didact.presenters.LibraryPresenter;
 import com.didactapp.didact.recycler.RecyclerViewBookAdapter;
 
@@ -22,17 +23,20 @@ import java.util.List;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
-public class LibraryActivity extends BaseActivity implements LibraryContract.View, BookRemoteGatewayCallback {
+public class LibraryActivity extends BaseActivity implements LibraryContract.View, SwipeRefreshLayout.OnRefreshListener {
 
     private static final int NUM_OF_COLUMNS = 2;
+    private static final String INTENT_KEY = "bookId";
+    private static final String DATABASE_NAME = "book_db";
 
 
-
-    private RecyclerView recycler;
-    private ProgressBar spinner;
-    private TextView noNetwork;
-    private TextView loadError;
+    private RecyclerView recyclerView;
+    private TextView noContentView;
+    private Snackbar noNetworkSnackbar;
+    private Snackbar loadErrorSnackbar;
     private LibraryContract.Presenter presenter;
+    private SwipeRefreshLayout swipeRefreshLayout;
+
 
 
     @Override
@@ -42,93 +46,135 @@ public class LibraryActivity extends BaseActivity implements LibraryContract.Vie
 
 
         /* get layout elements */
-        recycler = findViewById(R.id.books_grid);
-        spinner = findViewById(R.id.progress_spinner);
-        noNetwork = findViewById(R.id.no_network);
-        loadError = findViewById(R.id.loading_error);
+        recyclerView = findViewById(R.id.books_grid);
+        swipeRefreshLayout = findViewById(R.id.swipe_refresh_books);
+        noContentView = findViewById(R.id.no_content);
+        noNetworkSnackbar = Snackbar.make(swipeRefreshLayout, R.string.error_no_network, Snackbar.LENGTH_INDEFINITE);
+        loadErrorSnackbar = Snackbar.make(swipeRefreshLayout, R.string.error_loading, Snackbar.LENGTH_INDEFINITE);
 
-        /* init recycler view */
+        /* set swipe refresh listener */
+        swipeRefreshLayout.setOnRefreshListener(this);
+
+        /* init recyclerView view */
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, NUM_OF_COLUMNS);
-        recycler.setHasFixedSize(true);
-        recycler.setLayoutManager(gridLayoutManager);
-        recycler.addItemDecoration(new DividerItemDecoration(this, RecyclerView.VERTICAL));
-        recycler.addItemDecoration(new DividerItemDecoration(this, RecyclerView.HORIZONTAL));
-//        recycler.addOnItemTouchListener(this);
-        /* init presenter */
-        presenter = new LibraryPresenter();
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(gridLayoutManager);
+        recyclerView.addItemDecoration(new DividerItemDecoration(this, RecyclerView.VERTICAL));
+        recyclerView.addItemDecoration(new DividerItemDecoration(this, RecyclerView.HORIZONTAL));
+
+        /* retrieve or create presenter */
+        presenter = (LibraryContract.Presenter) getLastCustomNonConfigurationInstance();
+        if (presenter == null) {
+            presenter = new LibraryPresenter(BookRemoteGateway.getInstance(), BookLocalGateway.getInstance(this));
+        }
+
         presenter.takeView(this);
 
-        /* fetch data from server */
-        BookRemoteGateway remoteGateway = BookRemoteGateway.getInstance();
-        remoteGateway.getBookList(this);
+    }
+
+
+    /* save the presenter on screen rotation */
+    @Override
+    public Object onRetainCustomNonConfigurationInstance() {
+        return presenter;
     }
 
     @Override
     public void showBooks(List<Book> bookList) {
-        RecyclerViewBookAdapter recyclerViewAdapter = new RecyclerViewBookAdapter(this, bookList);
-        recycler.swapAdapter(recyclerViewAdapter, false);
-        recycler.setVisibility(VISIBLE);
+        RecyclerViewBookAdapter recyclerViewAdapter = new RecyclerViewBookAdapter(this, bookList, this);
+        recyclerView.swapAdapter(recyclerViewAdapter, false);
+        recyclerView.setVisibility(VISIBLE);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
     }
 
     @Override
     public void hideBooks() {
-        recycler.setVisibility(GONE);
+        recyclerView.setVisibility(GONE);
     }
 
     @Override
     public void showBookDetailsUi(String bookId) {
-        launchActivity(this, LibraryDetailActivity.class);
+        launchActivity(this, ChapterActivity.class);
     }
 
     @Override
     public void showSpinner() {
-        spinner.setVisibility(VISIBLE);
+        swipeRefreshLayout.setRefreshing(true);
     }
 
     @Override
     public void hideSpinner() {
-        spinner.setVisibility(GONE);
+        swipeRefreshLayout.setRefreshing(false);
+
+    }
+
+    @Override
+    public void showNoContent() {
+        noContentView.setVisibility(VISIBLE);
+    }
+
+    @Override
+    public void hideNoContent() {
+        noContentView.setVisibility(GONE);
 
     }
 
     @Override
     public void showLoadError() {
-        loadError.setVisibility(VISIBLE);
-
+        if (loadErrorSnackbar.isShown()) {
+            return;
+        }
+        loadErrorSnackbar.show();
     }
 
     @Override
     public void hideLoadError() {
-        loadError.setVisibility(GONE);
+        if (!loadErrorSnackbar.isShown()) {
+            return;
+        }
+        loadErrorSnackbar.dismiss();
 
     }
 
     @Override
     public void showNoNetwork() {
-        noNetwork.setVisibility(VISIBLE);
+        if (noNetworkSnackbar.isShown()) {
+            return;
+        }
+        noNetworkSnackbar.show();
     }
 
     @Override
     public void hideNoNetwork() {
-        noNetwork.setVisibility(GONE);
+        if (!noNetworkSnackbar.isShown()) {
+            return;
+        }
+        noNetworkSnackbar.dismiss();
 
-    }
-
-
-    @Override
-    public void onLoadSuccess(List<Book> bookList) {
-        presenter.onBooksLoaded(bookList);
     }
 
     @Override
-    public void onDataNotAvailable() {
-        LogUtils.d("data not available");
+    public void checkNetworkState() {
+        if (isNetworkConnected()) {
+            presenter.networkConnected();
+        } else {
+            presenter.networkDisconnected();
+        }
     }
 
     @Override
-    public void onLoadFailed() {
-        LogUtils.d("load failed");
+    public void onRefresh() {
+        presenter.update();
     }
 
-    /* handle recyclerview item touch */
+    @Override
+    public void onClick(View v) {
+        int pos = recyclerView.getChildAdapterPosition(v);
+        int bookId = ((RecyclerViewBookAdapter) recyclerView.getAdapter()).getBookId(pos);
+        launchActivity(this, ChapterActivity.class, INTENT_KEY, bookId);
+    }
 }

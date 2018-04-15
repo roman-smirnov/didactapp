@@ -3,7 +3,7 @@ package com.didactapp.didact.network.section;
 import android.support.annotation.NonNull;
 
 import com.apkfuns.logutils.LogUtils;
-import com.didactapp.didact.entities.Chapter;
+import com.didactapp.didact.entities.Section;
 import com.didactapp.didact.network.ApiClient;
 import com.didactapp.didact.network.ApiInterface;
 
@@ -18,7 +18,7 @@ import retrofit2.Response;
  * Created by roman on 12/03/2018.
  */
 
-public class SectionRemoteGateway implements SectionDataSource, Callback<List<Chapter>> {
+public class SectionRemoteGateway implements SectionDataSource, Callback<List<Section>> {
 
     private static SectionRemoteGateway INSTANCE = null;
 
@@ -40,20 +40,20 @@ public class SectionRemoteGateway implements SectionDataSource, Callback<List<Ch
     public void getSectionList(@NonNull SectionRemoteGatewayCallback callback) {
 
         this.callback = new WeakReference<>(callback);
-        Call<List<Chapter>> call;
+        Call<List<Section>> call;
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        call = apiInterface.getChapterList();
+        call = apiInterface.getSectionList();
         call.enqueue(this);
 
     }
 
     @Override
-    public void onResponse(Call<List<Chapter>> call, Response<List<Chapter>> response) {
+    public void onResponse(Call<List<Section>> call, Response<List<Section>> response) {
         if (callback != null && callback.get() != null) {
             // response.isSuccessful() is true if the response code is 2xx
             if (response.isSuccessful()) {
-                List<Chapter> chapterList = response.body();
-                callback.get().onLoadSuccess(chapterList);
+                List<Section> sectionList = response.body();
+                callback.get().onLoadSuccess(sectionList);
 
             } else if (response.body() == null || response.body().isEmpty()) {
                 callback.get().onDataNotAvailable();
@@ -66,7 +66,7 @@ public class SectionRemoteGateway implements SectionDataSource, Callback<List<Ch
     }
 
     @Override
-    public void onFailure(Call<List<Chapter>> call, Throwable t) {
+    public void onFailure(Call<List<Section>> call, Throwable t) {
         SectionRemoteGatewayCallback req = null;
         if (callback != null) {
             req = callback.get();

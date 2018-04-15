@@ -13,4 +13,11 @@ public interface BasePresenter<T> {
      */
     void dropView();
 
+    void networkDisconnected();
+
+    void networkConnected();
+
+    void update();
+
+
 }

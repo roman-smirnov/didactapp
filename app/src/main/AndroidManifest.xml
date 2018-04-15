@@ -24,8 +24,9 @@
         <activity android:name=".activities.RegisterActivity" />
 
         <activity android:name=".activities.LibraryActivity" />
-        <activity android:name=".activities.LibraryDetailActivity" />
 
         <activity android:name=".activities.ChapterActivity" />
+
+        <activity android:name=".activities.SectionActivity" />
     </application>
 </manifest>

@@ -1,6 +1,6 @@
 package com.didactapp.didact.network.section;
 
-import com.didactapp.didact.entities.Chapter;
+import com.didactapp.didact.entities.Section;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ public interface SectionRemoteGatewayCallback {
     /**
      * Fetch request succeeded.
      */
-    void onLoadSuccess(List<Chapter> chapterList);
+    void onLoadSuccess(List<Section> sectionList);
 
 
     /**

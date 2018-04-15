@@ -40,6 +40,9 @@
     <!-- subtitle component below appbar-->
     <dimen name="layout_vertical_spacing_subtitle">48dp</dimen>
 
+    <!-- content placeholder -->
+    <dimen name="layout_vertical_placeholder_spacing">72dp</dimen>
+
     <!-- Buttons -->
     <dimen name="button_height">36dp</dimen>
     <dimen name="button_min_width">88dp</dimen>

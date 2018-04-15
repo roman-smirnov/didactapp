@@ -37,4 +37,19 @@ public final class SectionPresenter implements SectionContract.Presenter {
     public void dropView() {
         view = null;
     }
+
+    @Override
+    public void networkDisconnected() {
+
+    }
+
+    @Override
+    public void networkConnected() {
+
+    }
+
+    @Override
+    public void update() {
+
+    }
 }

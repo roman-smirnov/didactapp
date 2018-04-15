@@ -14,7 +14,7 @@ import com.didactapp.didact.entities.Section;
 import com.didactapp.didact.network.section.SectionRemoteGateway;
 import com.didactapp.didact.network.section.SectionRemoteGatewayCallback;
 import com.didactapp.didact.presenters.SectionPresenter;
-import com.didactapp.didact.recycler.RecyclerViewChapterAdapter;
+import com.didactapp.didact.recycler.RecyclerViewSectionAdapter;
 
 import java.util.List;
 
@@ -22,6 +22,15 @@ import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
 public class SectionActivity extends BaseActivity implements SectionContract.View, SectionRemoteGatewayCallback {
+    @Override
+    public void showNoContent() {
+
+    }
+
+    @Override
+    public void hideNoContent() {
+
+    }
 
     private static final int NUM_OF_COLUMNS = 1;
 
@@ -62,7 +71,7 @@ public class SectionActivity extends BaseActivity implements SectionContract.Vie
 
     @Override
     public void showSections(List<Section> sectionList) {
-        RecyclerViewChapterAdapter recyclerViewAdapter = new RecyclerViewChapterAdapter(this, sectionList);
+        RecyclerViewSectionAdapter recyclerViewAdapter = new RecyclerViewSectionAdapter(this, sectionList);
         recycler.swapAdapter(recyclerViewAdapter, false);
         recycler.setVisibility(VISIBLE);
     }
@@ -70,6 +79,11 @@ public class SectionActivity extends BaseActivity implements SectionContract.Vie
     @Override
     public void hideSections() {
         recycler.setVisibility(GONE);
+    }
+
+    @Override
+    public void showSectionDetailsUi(String sectionId) {
+//        ???
     }
 
     @Override
@@ -104,6 +118,15 @@ public class SectionActivity extends BaseActivity implements SectionContract.Vie
     public void hideNoNetwork() {
         noNetwork.setVisibility(GONE);
 
+    }
+
+    @Override
+    public void checkNetworkState() {
+        if (isNetworkConnected()) {
+            presenter.networkConnected();
+        } else {
+            presenter.networkDisconnected();
+        }
     }
 
 

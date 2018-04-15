@@ -17,8 +17,10 @@ import java.util.List;
 public class RecyclerViewBookAdapter extends RecyclerView.Adapter<RecyclerViewBookHolder> {
     private List<Book> bookList;
     private Context context;
+    private View.OnClickListener clickListener;
 
-    public RecyclerViewBookAdapter(Context context, List<Book> bookList) {
+    public RecyclerViewBookAdapter(Context context, List<Book> bookList, View.OnClickListener clickListener) {
+        this.clickListener = clickListener;
         this.bookList = bookList;
         this.context = context;
     }
@@ -27,6 +29,7 @@ public class RecyclerViewBookAdapter extends RecyclerView.Adapter<RecyclerViewBo
     public RecyclerViewBookHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_library, null);
+        layoutView.setOnClickListener(clickListener);
         RecyclerViewBookHolder recyclerViewHolder = new RecyclerViewBookHolder(layoutView);
         return recyclerViewHolder;
     }
@@ -51,8 +54,8 @@ public class RecyclerViewBookAdapter extends RecyclerView.Adapter<RecyclerViewBo
         return this.bookList.size();
     }
 
-    public interface OnItemClicked {
-        void onItemClick(int position);
+    public int getBookId(int position) {
+        return bookList.get(position).getBookId();
     }
 
 }
