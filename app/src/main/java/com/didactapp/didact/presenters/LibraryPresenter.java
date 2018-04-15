@@ -7,8 +7,8 @@ import com.didactapp.didact.contracts.LibraryContract;
 import com.didactapp.didact.entities.Book;
 import com.didactapp.didact.network.book.BookRemoteGateway;
 import com.didactapp.didact.network.book.BookRemoteGatewayCallback;
-import com.didactapp.didact.persistence.BookLocalGateway;
-import com.didactapp.didact.persistence.BookLocalGatewayCallback;
+import com.didactapp.didact.persistence.book.BookLocalGateway;
+import com.didactapp.didact.persistence.book.BookLocalGatewayCallback;
 
 import java.util.List;
 
