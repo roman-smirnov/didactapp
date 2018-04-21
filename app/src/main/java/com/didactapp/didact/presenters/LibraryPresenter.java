@@ -5,17 +5,17 @@ import android.support.annotation.NonNull;
 
 import com.didactapp.didact.contracts.LibraryContract;
 import com.didactapp.didact.entities.Book;
-import com.didactapp.didact.network.book.BookRemoteGateway;
-import com.didactapp.didact.network.book.BookRemoteGatewayCallback;
-import com.didactapp.didact.persistence.book.BookLocalGateway;
-import com.didactapp.didact.persistence.book.BookLocalGatewayCallback;
+import com.didactapp.didact.network.BookRemoteGateway;
+import com.didactapp.didact.network.RemoteGatewayCallback;
+import com.didactapp.didact.persistence.BookLocalGateway;
+import com.didactapp.didact.persistence.LocalGatewayCallback;
 
 import java.util.List;
 
 /**
  * class to handle books presentation logic
  */
-public final class LibraryPresenter extends ViewModel implements LibraryContract.Presenter, BookRemoteGatewayCallback, BookLocalGatewayCallback {
+public final class LibraryPresenter extends ViewModel implements LibraryContract.Presenter, RemoteGatewayCallback<Book>, LocalGatewayCallback<Book> {
     private LibraryContract.View view = null;
     private BookRemoteGateway remoteGateway;
     private BookLocalGateway localGateway;
@@ -70,7 +70,7 @@ public final class LibraryPresenter extends ViewModel implements LibraryContract
         if (bookList != null) {
             view.showBooks(bookList);
         } else {
-            localGateway.getBookList(this);
+            localGateway.getItemList(this);
         }
 
     }
@@ -80,7 +80,7 @@ public final class LibraryPresenter extends ViewModel implements LibraryContract
         if (view == null) {
             return;
         }
-        remoteGateway.getBookList(this);
+        remoteGateway.getItemList(this);
     }
 
     @Override
@@ -91,7 +91,7 @@ public final class LibraryPresenter extends ViewModel implements LibraryContract
         view.hideSpinner();
         this.bookList = bookList;
         view.showBooks(bookList);
-        localGateway.storeBookList(bookList);
+        localGateway.storeItemList(bookList);
     }
 
     @Override

@@ -13,26 +13,32 @@ import com.didactapp.didact.entities.Section;
 import java.util.List;
 
 
-public class RecyclerViewSectionAdapter extends RecyclerView.Adapter<RecyclerViewSectionTextHolder> {
+public class RecyclerViewSectionAdapter extends RecyclerView.Adapter<RecyclerViewSectionHolder> {
     private List<Section> sectionList;
     private Context context;
+    private View.OnClickListener clickListener;
 
-    public RecyclerViewSectionAdapter(Context context, List<Section> chapterList) {
-        this.sectionList = chapterList;
+    public RecyclerViewSectionAdapter(Context context, List<Section> sectionList, View.OnClickListener clickListener) {
+        this.clickListener = clickListener;
+        this.sectionList = sectionList;
         this.context = context;
     }
 
     @Override
-    public RecyclerViewSectionTextHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_chapter, null);
-        RecyclerViewSectionTextHolder recyclerViewHolder = new RecyclerViewSectionTextHolder(layoutView);
+    public RecyclerViewSectionHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
+        View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_library, null);
+        layoutView.setOnClickListener(clickListener);
+        RecyclerViewSectionHolder recyclerViewHolder = new RecyclerViewSectionHolder(layoutView);
         return recyclerViewHolder;
     }
 
     @Override
-    public void onBindViewHolder(RecyclerViewSectionTextHolder holder, int position) {
+    public void onBindViewHolder(RecyclerViewSectionHolder holder, int position) {
+
         Section sectionAtPosition = sectionList.get(position);
-        holder.sectionNum.setText(sectionAtPosition.getSectionNum());
+        holder.name.setText(sectionAtPosition.getName());
+        holder.number.setText(sectionAtPosition.getSectionNum());
     }
 
     @Override
@@ -40,8 +46,5 @@ public class RecyclerViewSectionAdapter extends RecyclerView.Adapter<RecyclerVie
         return this.sectionList.size();
     }
 
-    public interface OnItemClicked {
-        void onItemClick(int position);
-    }
 
 }

@@ -2,21 +2,21 @@ package com.didactapp.didact.models;
 
 public abstract class ChapterModel {
 
-    protected final int bookId;
     protected final int chapterId;
+    protected final int bookId;
     protected final int chapterNum;
     protected final String name;
     protected final String description;
-    protected final String thumbnailUrl;
+    protected final String imageUrl;
 
 
-    protected ChapterModel(int chapterId, int bookId, int chapterNum,String name,  String description, String imageUrl) {
+    protected ChapterModel(int chapterId, int bookId, int chapterNum, String name, String description, String imageUrl) {
         this.chapterId = chapterId;
         this.bookId = bookId;
         this.chapterNum = chapterNum;
         this.name = name;
         this.description = description;
-        this.thumbnailUrl = imageUrl;
+        this.imageUrl = imageUrl;
     }
 
     public int getBookId() {
@@ -39,8 +39,8 @@ public abstract class ChapterModel {
         return description;
     }
 
-    public String getThumbnailUrl() {
-        return thumbnailUrl;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
     @Override
@@ -51,7 +51,7 @@ public abstract class ChapterModel {
                 ", chapterNum=" + chapterNum +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
-                ", thumbnailUrl='" + thumbnailUrl + '\'' +
+                ", imageUrl='" + imageUrl + '\'' +
                 '}';
     }
 }

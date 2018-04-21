@@ -13,7 +13,7 @@ public interface SectionContract {
 
         void hideSections();
 
-        void showSectionDetailsUi(String sectionId);
+        void showSectionDetailsUi(int sectionId);
 
         void showSpinner();
 

@@ -3,7 +3,6 @@ package com.didactapp.didact.entities;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
 
-
 import com.didactapp.didact.models.ChapterModel;
 
 import static android.arch.persistence.room.ForeignKey.CASCADE;
@@ -13,8 +12,8 @@ import static android.arch.persistence.room.ForeignKey.CASCADE;
         childColumns = "chapterId",
         onDelete = CASCADE))
 public final class Chapter extends ChapterModel {
-
     public Chapter(int chapterId, int bookId, int chapterNum, String name, String description, String imageUrl) {
         super(chapterId, bookId, chapterNum, name, description, imageUrl);
     }
 }
+

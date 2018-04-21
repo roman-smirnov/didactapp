@@ -1,11 +1,9 @@
-package com.didactapp.didact.network.chapter;
+package com.didactapp.didact.network;
 
 import android.support.annotation.NonNull;
 
 import com.apkfuns.logutils.LogUtils;
 import com.didactapp.didact.entities.Chapter;
-import com.didactapp.didact.network.ApiClient;
-import com.didactapp.didact.network.ApiInterface;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
@@ -18,11 +16,11 @@ import retrofit2.Response;
  * Created by roman on 12/03/2018.
  */
 
-public class ChapterRemoteGateway implements ChapterDataSource, Callback<List<Chapter>> {
+public class ChapterRemoteGateway implements RemoteGateway<Chapter>, Callback<List<Chapter>> {
 
     private static ChapterRemoteGateway INSTANCE = null;
 
-    private WeakReference<ChapterRemoteGatewayCallback> callback = null;
+    private WeakReference<RemoteGatewayCallback<Chapter>> callback = null;
 
     private ChapterRemoteGateway() {
     }
@@ -37,7 +35,7 @@ public class ChapterRemoteGateway implements ChapterDataSource, Callback<List<Ch
 
 
     @Override
-    public void getChapterList(@NonNull ChapterRemoteGatewayCallback callback) {
+    public void getItemList(@NonNull RemoteGatewayCallback<Chapter> callback) {
 
         this.callback = new WeakReference<>(callback);
         Call<List<Chapter>> call;
@@ -53,26 +51,26 @@ public class ChapterRemoteGateway implements ChapterDataSource, Callback<List<Ch
             // response.isSuccessful() is true if the response code is 2xx
             if (response.isSuccessful()) {
                 List<Chapter> chapterList = response.body();
-                callback.get().onLoadSuccess(chapterList);
+                callback.get().onRemoteLoadRSuccess(chapterList);
 
             } else if (response.body() == null || response.body().isEmpty()) {
-                callback.get().onDataNotAvailable();
+                callback.get().onRemoteDataNotAvailable();
             }
         } else {
             // TODO: handle error cases
             LogUtils.d("error status code returned");
-            callback.get().onLoadFailed();
+            callback.get().onRemoteLoadFailed();
         }
     }
 
     @Override
     public void onFailure(Call<List<Chapter>> call, Throwable t) {
-        ChapterRemoteGatewayCallback req = null;
+        RemoteGatewayCallback<Chapter> req = null;
         if (callback != null) {
             req = callback.get();
         }
         if (req != null) {
-            req.onLoadFailed();
+            req.onRemoteLoadFailed();
         }
     }
 

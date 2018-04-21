@@ -1,30 +1,28 @@
-package com.didactapp.didact.network.section;
-
-import com.didactapp.didact.entities.Section;
+package com.didactapp.didact.network;
 
 import java.util.List;
 
 /**
  * an interface that should be implemented by clients that ask for Data from {@code ApiManager}
  */
-public interface SectionRemoteGatewayCallback {
+public interface RemoteGatewayCallback<T> {
 
     /**
      * Fetch request succeeded.
      */
-    void onLoadSuccess(List<Section> sectionList);
+    void onRemoteLoadRSuccess(List<T> itemList);
 
 
     /**
      * Fetch request succeeded - but no data to show
      */
-    void onDataNotAvailable();
+    void onRemoteDataNotAvailable();
 
     /**
      * Fetch request failed.
      *
      * @param error
      */
-    void onLoadFailed();
+    void onRemoteLoadFailed();
 
 }

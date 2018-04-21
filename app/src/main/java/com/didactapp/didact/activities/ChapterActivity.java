@@ -11,8 +11,6 @@ import android.widget.TextView;
 import com.didactapp.didact.R;
 import com.didactapp.didact.contracts.ChapterContract;
 import com.didactapp.didact.entities.Chapter;
-import com.didactapp.didact.network.chapter.ChapterRemoteGateway;
-import com.didactapp.didact.network.chapter.ChapterRemoteGatewayCallback;
 import com.didactapp.didact.presenters.ChapterPresenter;
 import com.didactapp.didact.recycler.RecyclerViewChapterAdapter;
 
@@ -21,7 +19,7 @@ import java.util.List;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
-public class ChapterActivity extends BaseActivity implements ChapterContract.View, ChapterRemoteGatewayCallback {
+public class ChapterActivity extends BaseActivity implements ChapterContract.View {
 
     private static final int NUM_OF_COLUMNS = 1 ;
 
@@ -58,8 +56,8 @@ public class ChapterActivity extends BaseActivity implements ChapterContract.Vie
         presenter.takeView(this);
 
         /* fetch data from server */
-        ChapterRemoteGateway remoteGateway = ChapterRemoteGateway.getInstance();
-        remoteGateway.getChapterList(this);
+//        ChapterRemoteGateway remoteGateway = ChapterRemoteGateway.getInstance();
+//        remoteGateway.getChapterList(this);
     }
 
     @Override
@@ -132,20 +130,5 @@ public class ChapterActivity extends BaseActivity implements ChapterContract.Vie
         } else {
             presenter.networkDisconnected();
         }
-    }
-
-    @Override
-    public void onLoadSuccess(List<Chapter> chapterList) {
-        presenter.onChaptersLoaded(chapterList);
-    }
-
-    @Override
-    public void onDataNotAvailable() {
-
-    }
-
-    @Override
-    public void onLoadFailed() {
-
     }
 }

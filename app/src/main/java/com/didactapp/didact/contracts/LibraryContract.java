@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface LibraryContract {
 
-    interface View extends BaseView<Presenter>, android.view.View.OnClickListener {
+    interface View extends BaseView<Presenter> {
 
         void showBooks(List<Book> bookList);
 

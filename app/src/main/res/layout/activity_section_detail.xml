@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content_scrollview_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.didactapp.didact.activities.LoginActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/screen_edge_margin"
+        android:layout_marginStart="@dimen/screen_edge_margin"
+        android:layout_marginTop="?android:actionBarSize"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/explanation_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/vertical_margin"
+            android:gravity="center"
+            android:text="@string/placeholder_explanation"
+            android:textSize="@dimen/typography_title" />
+
+        <ImageView
+            android:id="@+id/illustration_image"
+            android:layout_width="256dp"
+            android:layout_height="256dp"
+            android:layout_gravity="center"
+            android:contentDescription="@string/content_illustration"
+            android:src="@drawable/ic_book" />
+
+        <LinearLayout
+            android:id="@+id/multiple_choice_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/multiple_choice_question"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/vertical_margin"
+                android:gravity="center"
+                android:text="@string/placeholder_question"
+                android:textSize="@dimen/typography_title" />
+
+            <RadioGroup
+                android:id="@+id/multiple_choice_answer_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RadioButton
+                    android:id="@+id/answer1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/placeholder_answer" />
+
+                <RadioButton
+                    android:id="@+id/answer2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/placeholder_answer" />
+
+                <RadioButton
+                    android:id="@+id/answer3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/placeholder_answer" />
+
+                <RadioButton
+                    android:id="@+id/answer4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/placeholder_answer" />
+
+            </RadioGroup>
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

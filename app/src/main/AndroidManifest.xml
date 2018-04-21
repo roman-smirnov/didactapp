@@ -21,6 +21,7 @@
         </activity>
 
         <activity android:name=".activities.LoginActivity" />
+
         <activity android:name=".activities.RegisterActivity" />
 
         <activity android:name=".activities.LibraryActivity" />
@@ -28,5 +29,7 @@
         <activity android:name=".activities.ChapterActivity" />
 
         <activity android:name=".activities.SectionActivity" />
+
+        <activity android:name=".activities.SectionDetailActivity" />
     </application>
 </manifest>

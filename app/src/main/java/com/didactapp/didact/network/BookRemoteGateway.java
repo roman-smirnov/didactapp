@@ -1,11 +1,9 @@
-package com.didactapp.didact.network.book;
+package com.didactapp.didact.network;
 
 import android.support.annotation.NonNull;
 
 import com.apkfuns.logutils.LogUtils;
 import com.didactapp.didact.entities.Book;
-import com.didactapp.didact.network.ApiClient;
-import com.didactapp.didact.network.ApiInterface;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
@@ -18,11 +16,11 @@ import retrofit2.Response;
  * Created by roman on 12/03/2018.
  */
 
-public class BookRemoteGateway implements BookRemoteDataSource, Callback<List<Book>> {
+public class BookRemoteGateway implements RemoteGateway<Book>, Callback<List<Book>> {
 
     private static BookRemoteGateway INSTANCE = null;
 
-    private WeakReference<BookRemoteGatewayCallback> callback = null;
+    private WeakReference<RemoteGatewayCallback<Book>> callback = null;
 
     private BookRemoteGateway() {
     }
@@ -35,16 +33,13 @@ public class BookRemoteGateway implements BookRemoteDataSource, Callback<List<Bo
         return INSTANCE;
     }
 
-
     @Override
-    public void getBookList(@NonNull BookRemoteGatewayCallback callback) {
-
+    public void getItemList(@NonNull RemoteGatewayCallback<Book> callback) {
         this.callback = new WeakReference<>(callback);
         Call<List<Book>> call;
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
         call = apiInterface.getBookList();
         call.enqueue(this);
-
     }
 
     @Override
@@ -67,7 +62,7 @@ public class BookRemoteGateway implements BookRemoteDataSource, Callback<List<Bo
 
     @Override
     public void onFailure(Call<List<Book>> call, Throwable t) {
-        BookRemoteGatewayCallback req = null;
+        RemoteGatewayCallback<Book> req = null;
         if (callback != null) {
             req = callback.get();
         }

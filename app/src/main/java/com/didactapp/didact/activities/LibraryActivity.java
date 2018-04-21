@@ -13,8 +13,8 @@ import android.widget.TextView;
 import com.didactapp.didact.R;
 import com.didactapp.didact.contracts.LibraryContract;
 import com.didactapp.didact.entities.Book;
-import com.didactapp.didact.network.book.BookRemoteGateway;
-import com.didactapp.didact.persistence.book.BookLocalGateway;
+import com.didactapp.didact.network.BookRemoteGateway;
+import com.didactapp.didact.persistence.BookLocalGateway;
 import com.didactapp.didact.presenters.LibraryPresenter;
 import com.didactapp.didact.recycler.RecyclerViewBookAdapter;
 
@@ -23,7 +23,7 @@ import java.util.List;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
-public class LibraryActivity extends BaseActivity implements LibraryContract.View, SwipeRefreshLayout.OnRefreshListener {
+public class LibraryActivity extends BaseActivity implements LibraryContract.View, SwipeRefreshLayout.OnRefreshListener, View.OnClickListener {
 
     private static final int NUM_OF_COLUMNS = 2;
     private static final String INTENT_KEY = "bookId";
