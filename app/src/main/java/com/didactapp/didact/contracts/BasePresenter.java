@@ -19,5 +19,4 @@ public interface BasePresenter<T> {
 
     void update();
 
-
 }

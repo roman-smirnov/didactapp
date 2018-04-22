@@ -2,15 +2,19 @@ package com.didactapp.didact.activities;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.ProgressBar;
+import android.view.View;
 import android.widget.TextView;
 
 import com.didactapp.didact.R;
 import com.didactapp.didact.contracts.ChapterContract;
 import com.didactapp.didact.entities.Chapter;
+import com.didactapp.didact.network.ChapterRemoteGateway;
+import com.didactapp.didact.persistence.ChapterLocalGateway;
 import com.didactapp.didact.presenters.ChapterPresenter;
 import com.didactapp.didact.recycler.RecyclerViewChapterAdapter;
 
@@ -18,17 +22,20 @@ import java.util.List;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
+import static com.didactapp.didact.utils.Constants.BOOK_ID_INTENT_KEY;
 
-public class ChapterActivity extends BaseActivity implements ChapterContract.View {
+public class ChapterActivity extends BaseActivity implements ChapterContract.View, SwipeRefreshLayout.OnRefreshListener, View.OnClickListener {
 
-    private static final int NUM_OF_COLUMNS = 1 ;
+    private static final int NUM_OF_COLUMNS = 1;
+    private static final int DEFAULT_EXTRA_VAL = -1;
 
 
 
     private RecyclerView recycler;
-    private ProgressBar spinner;
-    private TextView noNetwork;
-    private TextView loadError;
+    private TextView noContentView;
+    private Snackbar noNetworkSnackbar;
+    private Snackbar loadErrorSnackbar;
+    private SwipeRefreshLayout swipeRefreshLayout;
     private ChapterContract.Presenter presenter;
 
 
@@ -40,9 +47,10 @@ public class ChapterActivity extends BaseActivity implements ChapterContract.Vie
 
         /* get layout elements */
         recycler = findViewById(R.id.chapter_list);
-        spinner = findViewById(R.id.progress_spinner);
-        noNetwork = findViewById(R.id.no_network);
-        loadError = findViewById(R.id.loading_error);
+        swipeRefreshLayout = findViewById(R.id.chapter_swipe_refresh);
+        noContentView = findViewById(R.id.chapter_no_content);
+        noNetworkSnackbar = Snackbar.make(swipeRefreshLayout, R.string.error_no_network, Snackbar.LENGTH_INDEFINITE);
+        loadErrorSnackbar = Snackbar.make(swipeRefreshLayout, R.string.error_loading, Snackbar.LENGTH_INDEFINITE);
 
         /* init recycler view */
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, NUM_OF_COLUMNS);
@@ -50,14 +58,24 @@ public class ChapterActivity extends BaseActivity implements ChapterContract.Vie
         recycler.setLayoutManager(gridLayoutManager);
         recycler.addItemDecoration(new DividerItemDecoration(this, RecyclerView.VERTICAL));
         recycler.addItemDecoration(new DividerItemDecoration(this, RecyclerView.HORIZONTAL));
-//        recycler.addOnItemTouchListener(this);
-        /* init presenter */
-        presenter = new ChapterPresenter();
+
+        /* retrieve or create presenter */
+        presenter = (ChapterContract.Presenter) getLastCustomNonConfigurationInstance();
+        if (presenter == null) {
+            presenter = new ChapterPresenter(ChapterRemoteGateway.getInstance(), ChapterLocalGateway.getInstance(this));
+        }
+
         presenter.takeView(this);
 
-        /* fetch data from server */
-//        ChapterRemoteGateway remoteGateway = ChapterRemoteGateway.getInstance();
-//        remoteGateway.getChapterList(this);
+        int bookId = getIntent().getIntExtra(BOOK_ID_INTENT_KEY, DEFAULT_EXTRA_VAL);
+        presenter.loadChapters(bookId);
+    }
+
+
+    /* save the presenter on screen rotation */
+    @Override
+    public Object onRetainCustomNonConfigurationInstance() {
+        return presenter;
     }
 
     @Override
@@ -79,48 +97,60 @@ public class ChapterActivity extends BaseActivity implements ChapterContract.Vie
     }
 
 
+
     @Override
     public void showSpinner() {
-        spinner.setVisibility(VISIBLE);
+        swipeRefreshLayout.setRefreshing(true);
     }
 
     @Override
     public void hideSpinner() {
-        spinner.setVisibility(GONE);
-
-    }
-
-    @Override
-    public void showLoadError() {
-        loadError.setVisibility(VISIBLE);
-
-    }
-
-    @Override
-    public void hideLoadError() {
-        loadError.setVisibility(GONE);
-
-    }
-
-    @Override
-    public void showNoNetwork() {
-        noNetwork.setVisibility(VISIBLE);
-    }
-
-    @Override
-    public void hideNoNetwork() {
-        noNetwork.setVisibility(GONE);
+        swipeRefreshLayout.setRefreshing(false);
 
     }
 
     @Override
     public void showNoContent() {
-
+        noContentView.setVisibility(VISIBLE);
     }
 
     @Override
     public void hideNoContent() {
+        noContentView.setVisibility(GONE);
 
+    }
+
+    @Override
+    public void showLoadError() {
+        if (loadErrorSnackbar.isShown()) {
+            return;
+        }
+        loadErrorSnackbar.show();
+    }
+
+    @Override
+    public void hideLoadError() {
+        if (!loadErrorSnackbar.isShown()) {
+            return;
+        }
+        loadErrorSnackbar.dismiss();
+
+    }
+
+    @Override
+    public void showNoNetwork() {
+        if (noNetworkSnackbar.isShown()) {
+            return;
+        }
+        noNetworkSnackbar.show();
+    }
+
+    @Override
+    public void hideNoNetwork() {
+        if (!noNetworkSnackbar.isShown()) {
+            return;
+        }
+        noNetworkSnackbar.dismiss();
     }
 
     @Override
@@ -130,5 +160,15 @@ public class ChapterActivity extends BaseActivity implements ChapterContract.Vie
         } else {
             presenter.networkDisconnected();
         }
+    }
+
+    @Override
+    public void onRefresh() {
+        presenter.update();
+    }
+
+    @Override
+    public void onClick(View v) {
+//        TODO impl this
     }
 }

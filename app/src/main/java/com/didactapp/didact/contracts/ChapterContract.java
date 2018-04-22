@@ -15,27 +15,13 @@ public interface ChapterContract {
 
         void showChapterContent(int chapterId);
 
-        void showSpinner();
-
-        void hideSpinner();
-
-        void showLoadError();
-
-        void hideLoadError();
-
-        void showNoNetwork();
-
-        void hideNoNetwork();
 
     }
 
     interface Presenter extends BasePresenter<View> {
         void onChapterSelected(Chapter requestedChapter);
 
-        void onChaptersLoaded(List<Chapter> chapterList);
-
-        void loadChapters();
-
+        void loadChapters(int bookId);
 
     }
 

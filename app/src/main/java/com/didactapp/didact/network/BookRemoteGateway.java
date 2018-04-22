@@ -48,6 +48,7 @@ public class BookRemoteGateway implements RemoteGateway<Book>, Callback<List<Boo
             // response.isSuccessful() is true if the response code is 2xx
             if (response.isSuccessful()) {
                 List<Book> bookList = response.body();
+                LogUtils.d(response.body());
                 callback.get().onRemoteLoadRSuccess(bookList);
 
             } else if (response.body() == null || response.body().isEmpty()) {

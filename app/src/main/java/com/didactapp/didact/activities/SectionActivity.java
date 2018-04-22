@@ -2,12 +2,12 @@ package com.didactapp.didact.activities;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.didactapp.didact.R;
@@ -16,6 +16,7 @@ import com.didactapp.didact.entities.Section;
 import com.didactapp.didact.network.SectionRemoteGateway;
 import com.didactapp.didact.persistence.SectionLocalGateway;
 import com.didactapp.didact.presenters.SectionPresenter;
+import com.didactapp.didact.recycler.RecyclerViewBookAdapter;
 import com.didactapp.didact.recycler.RecyclerViewSectionAdapter;
 
 import java.util.List;
@@ -26,32 +27,37 @@ import static android.view.View.VISIBLE;
 public class SectionActivity extends BaseActivity implements SectionContract.View, SwipeRefreshLayout.OnRefreshListener, View.OnClickListener {
 
     private static final int NUM_OF_COLUMNS = 1;
+    private static final String INTENT_KEY = "bookId";
+    private static final String DATABASE_NAME = "book_db";
 
-    private RecyclerView recycler;
-    private ProgressBar spinner;
-    private TextView noNetwork;
-    private TextView loadError;
+    private RecyclerView recyclerView;
+    private TextView noContentView;
+    private Snackbar noNetworkSnackbar;
+    private Snackbar loadErrorSnackbar;
+    private SwipeRefreshLayout swipeRefreshLayout;
     private SectionContract.Presenter presenter;
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chapter);
+        setContentView(R.layout.activity_section);
 
 
         /* get layout elements */
-        recycler = findViewById(R.id.chapter_list);
-        spinner = findViewById(R.id.progress_spinner);
-        noNetwork = findViewById(R.id.no_network);
-        loadError = findViewById(R.id.loading_error);
+        recyclerView = findViewById(R.id.chapter_list);
+        swipeRefreshLayout = findViewById(R.id.library_swipe_refresh);
+        noContentView = findViewById(R.id.library_no_content);
+        noNetworkSnackbar = Snackbar.make(swipeRefreshLayout, R.string.error_no_network, Snackbar.LENGTH_INDEFINITE);
+        loadErrorSnackbar = Snackbar.make(swipeRefreshLayout, R.string.error_loading, Snackbar.LENGTH_INDEFINITE);
 
-        /* init recycler view */
+
+        /* init recyclerView view */
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, NUM_OF_COLUMNS);
-        recycler.setHasFixedSize(true);
-        recycler.setLayoutManager(gridLayoutManager);
-        recycler.addItemDecoration(new DividerItemDecoration(this, RecyclerView.VERTICAL));
-        recycler.addItemDecoration(new DividerItemDecoration(this, RecyclerView.HORIZONTAL));
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(gridLayoutManager);
+        recyclerView.addItemDecoration(new DividerItemDecoration(this, RecyclerView.VERTICAL));
+        recyclerView.addItemDecoration(new DividerItemDecoration(this, RecyclerView.HORIZONTAL));
 
         /* retrieve or create presenter */
         presenter = (SectionContract.Presenter) getLastCustomNonConfigurationInstance();
@@ -65,13 +71,13 @@ public class SectionActivity extends BaseActivity implements SectionContract.Vie
     @Override
     public void showSections(List<Section> sectionList) {
         RecyclerViewSectionAdapter recyclerViewAdapter = new RecyclerViewSectionAdapter(this, sectionList, this);
-        recycler.swapAdapter(recyclerViewAdapter, false);
-        recycler.setVisibility(VISIBLE);
+        recyclerView.swapAdapter(recyclerViewAdapter, false);
+        recyclerView.setVisibility(VISIBLE);
     }
 
     @Override
     public void hideSections() {
-        recycler.setVisibility(GONE);
+        recyclerView.setVisibility(GONE);
     }
 
     @Override
@@ -79,38 +85,59 @@ public class SectionActivity extends BaseActivity implements SectionContract.Vie
 //        TODO impl this
     }
 
-
     @Override
     public void showSpinner() {
-        spinner.setVisibility(VISIBLE);
+        swipeRefreshLayout.setRefreshing(true);
     }
 
     @Override
     public void hideSpinner() {
-        spinner.setVisibility(GONE);
+        swipeRefreshLayout.setRefreshing(false);
+
+    }
+
+    @Override
+    public void showNoContent() {
+        noContentView.setVisibility(VISIBLE);
+    }
+
+    @Override
+    public void hideNoContent() {
+        noContentView.setVisibility(GONE);
 
     }
 
     @Override
     public void showLoadError() {
-        loadError.setVisibility(VISIBLE);
-
+        if (loadErrorSnackbar.isShown()) {
+            return;
+        }
+        loadErrorSnackbar.show();
     }
 
     @Override
     public void hideLoadError() {
-        loadError.setVisibility(GONE);
+        if (!loadErrorSnackbar.isShown()) {
+            return;
+        }
+        loadErrorSnackbar.dismiss();
 
     }
 
     @Override
     public void showNoNetwork() {
-        noNetwork.setVisibility(VISIBLE);
+        if (noNetworkSnackbar.isShown()) {
+            return;
+        }
+        noNetworkSnackbar.show();
     }
 
     @Override
     public void hideNoNetwork() {
-        noNetwork.setVisibility(GONE);
+        if (!noNetworkSnackbar.isShown()) {
+            return;
+        }
+        noNetworkSnackbar.dismiss();
 
     }
 
@@ -124,22 +151,14 @@ public class SectionActivity extends BaseActivity implements SectionContract.Vie
     }
 
     @Override
-    public void showNoContent() {
-
-    }
-
-    @Override
-    public void hideNoContent() {
-
-    }
-
-    @Override
     public void onRefresh() {
-
+        presenter.update();
     }
 
     @Override
     public void onClick(View v) {
-
+        int pos = recyclerView.getChildAdapterPosition(v);
+        int bookId = ((RecyclerViewBookAdapter) recyclerView.getAdapter()).getBookId(pos);
+        launchActivity(this, ChapterActivity.class, INTENT_KEY, bookId);
     }
 }

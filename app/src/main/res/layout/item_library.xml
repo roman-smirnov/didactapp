@@ -31,4 +31,5 @@
         android:text="@string/placeholder_tagline"
         android:textSize="@dimen/typography_body2" />
 
+
 </LinearLayout>

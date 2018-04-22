@@ -30,12 +30,13 @@
     <string name="register_for_didact_app">Register New Account </string>
     <string name="chapter_thumbnail_image">chapter thumbnail image</string>
     <string name="one">1</string>
-    <string name="no_content">Nothing to show</string>
+    <string name="library_no_content">Nothing to show</string>
     <string name="untitled_section">Untitled section</string>
     <string name="unnumbered_section">---</string>
     <string name="placeholder_answer">Answer</string>
     <string name="placeholder_explanation">Explanation</string>
     <string name="placeholder_question">Question</string>
     <string name="content_illustration">illustration image</string>
+    <string name="chapters_no_content">No chapters to show</string>
 
 </resources>

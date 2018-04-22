@@ -22,13 +22,11 @@ import java.util.List;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
+import static com.didactapp.didact.utils.Constants.BOOK_ID_INTENT_KEY;
 
 public class LibraryActivity extends BaseActivity implements LibraryContract.View, SwipeRefreshLayout.OnRefreshListener, View.OnClickListener {
 
     private static final int NUM_OF_COLUMNS = 2;
-    private static final String INTENT_KEY = "bookId";
-    private static final String DATABASE_NAME = "book_db";
-
 
     private RecyclerView recyclerView;
     private TextView noContentView;
@@ -46,9 +44,9 @@ public class LibraryActivity extends BaseActivity implements LibraryContract.Vie
 
 
         /* get layout elements */
-        recyclerView = findViewById(R.id.books_grid);
-        swipeRefreshLayout = findViewById(R.id.swipe_refresh_books);
-        noContentView = findViewById(R.id.no_content);
+        recyclerView = findViewById(R.id.library_grid);
+        swipeRefreshLayout = findViewById(R.id.library_swipe_refresh);
+        noContentView = findViewById(R.id.library_no_content);
         noNetworkSnackbar = Snackbar.make(swipeRefreshLayout, R.string.error_no_network, Snackbar.LENGTH_INDEFINITE);
         loadErrorSnackbar = Snackbar.make(swipeRefreshLayout, R.string.error_loading, Snackbar.LENGTH_INDEFINITE);
 
@@ -84,11 +82,6 @@ public class LibraryActivity extends BaseActivity implements LibraryContract.Vie
         RecyclerViewBookAdapter recyclerViewAdapter = new RecyclerViewBookAdapter(this, bookList, this);
         recyclerView.swapAdapter(recyclerViewAdapter, false);
         recyclerView.setVisibility(VISIBLE);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
     }
 
     @Override
@@ -175,6 +168,6 @@ public class LibraryActivity extends BaseActivity implements LibraryContract.Vie
     public void onClick(View v) {
         int pos = recyclerView.getChildAdapterPosition(v);
         int bookId = ((RecyclerViewBookAdapter) recyclerView.getAdapter()).getBookId(pos);
-        launchActivity(this, ChapterActivity.class, INTENT_KEY, bookId);
+        launchActivity(this, ChapterActivity.class, BOOK_ID_INTENT_KEY, bookId);
     }
 }

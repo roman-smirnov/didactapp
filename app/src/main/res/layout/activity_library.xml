@@ -3,7 +3,7 @@
 <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/swipe_refresh_books"
+    android:id="@+id/library_swipe_refresh"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -13,7 +13,7 @@
         android:orientation="vertical">
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/books_grid"
+            android:id="@+id/library_grid"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:scrollbars="vertical"
@@ -24,14 +24,14 @@
 
 
         <TextView
-            android:id="@+id/no_content"
+            android:id="@+id/library_no_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/layout_vertical_placeholder_spacing"
             android:drawableBottom="@drawable/ic_sad"
             android:gravity="center"
-            android:text="@string/no_content"
+            android:text="@string/library_no_content"
             android:textSize="@dimen/typography_headline"
             android:visibility="gone" />
 
