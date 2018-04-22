@@ -67,7 +67,6 @@ public class LibraryActivity extends BaseActivity implements LibraryContract.Vie
         }
 
         presenter.takeView(this);
-
     }
 
 

@@ -15,7 +15,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/explanation_text"
+            android:id="@+id/section_detail_explanation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -25,10 +25,11 @@
             android:textSize="@dimen/typography_title" />
 
         <ImageView
-            android:id="@+id/illustration_image"
-            android:layout_width="256dp"
-            android:layout_height="256dp"
+            android:id="@+id/section_detail_illustration"
+            android:layout_width="@dimen/illustration_width"
+            android:layout_height="@dimen/illustration_height"
             android:layout_gravity="center"
+            android:layout_marginTop="@dimen/vertical_margin"
             android:contentDescription="@string/content_illustration"
             android:src="@drawable/ic_book" />
 
@@ -39,41 +40,44 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/multiple_choice_question"
+                android:id="@+id/section_detail_question"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+
                 android:layout_marginTop="@dimen/vertical_margin"
                 android:gravity="center"
                 android:text="@string/placeholder_question"
                 android:textSize="@dimen/typography_title" />
 
             <RadioGroup
-                android:id="@+id/multiple_choice_answer_container"
+                android:id="@+id/section_detail_multiple_choice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/screen_edge_content_margin"
+                android:layout_marginTop="@dimen/vertical_margin"
                 android:orientation="vertical">
 
                 <RadioButton
-                    android:id="@+id/answer1"
+                    android:id="@+id/section_detail_answer1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/placeholder_answer" />
 
                 <RadioButton
-                    android:id="@+id/answer2"
+                    android:id="@+id/section_detail_answer2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/placeholder_answer" />
 
                 <RadioButton
-                    android:id="@+id/answer3"
+                    android:id="@+id/section_detail_answer3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/placeholder_answer" />
 
                 <RadioButton
-                    android:id="@+id/answer4"
+                    android:id="@+id/section_detail_answer4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/placeholder_answer" />

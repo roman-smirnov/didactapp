@@ -2,19 +2,19 @@ package com.didactapp.didact.models;
 
 public abstract class UserModel {
 
-    protected final int userId;
-    protected final int userPoints;
+    protected final String email;
+    protected final String password;
 
-    protected UserModel(int userId, int userPoints) {
-        this.userId = userId;
-        this.userPoints = userPoints;
+    public UserModel(String email, String password) {
+        this.email = email;
+        this.password = password;
     }
 
-    public final int getUserId() {
-        return userId;
+    public String getEmail() {
+        return email;
     }
 
-    public final int getUserPoints() {
-        return userPoints;
+    public String getPassword() {
+        return password;
     }
 }

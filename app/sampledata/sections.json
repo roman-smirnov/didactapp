@@ -3,7 +3,13 @@
     "chapterId": 9,
     "sectionId": 9,
     "sectionNum": 0,
-    "name": "best section ever"
+    "name": "best section ever",
+    "explanation": "best explanation ever",
+    "explanation": "best question ever",
+    "wrongAnswer1": "wrong answer 1",
+    "wrongAnswer2": "wrong answer 2",
+    "wrongAnswer3": "wrong answer 3"
+
   },
   {
     "chapterId": 8,
@@ -17,7 +23,6 @@
     "sectionId": 2001,
     "sectionNum": 2,
     "name": "another section"
-
   },
   {
     "chapterId": 1,

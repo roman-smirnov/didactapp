@@ -81,6 +81,7 @@ public class SectionLocalGateway implements LocalGateway<Section> {
             executor.diskIO().execute(new Runnable() {
                 @Override
                 public void run() {
+//                    TODO: implement a single transaction instead of multiple
                     for (Section section : sectionList) {
                         try {
                             appDatabase.sectionDao().insert(section);

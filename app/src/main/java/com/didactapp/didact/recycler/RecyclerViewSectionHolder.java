@@ -19,7 +19,6 @@ class RecyclerViewSectionHolder extends RecyclerView.ViewHolder {
         super(itemView);
         state = itemView.findViewById(R.id.section_state);
         name = itemView.findViewById(R.id.section_name);
-        number = itemView.findViewById(R.id.section_number);
     }
 
 }

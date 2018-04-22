@@ -39,5 +39,8 @@
     <string name="content_illustration">illustration image</string>
     <string name="chapters_no_content">No chapters to show</string>
     <string name="section_no_content">No sections to show</string>
+    <string name="library_title">Book Library</string>
+    <string name="chapter_title">Chapters</string>
+    <string name="section_title">Sections</string>
 
 </resources>

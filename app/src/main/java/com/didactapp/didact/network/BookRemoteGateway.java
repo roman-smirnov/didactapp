@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.apkfuns.logutils.LogUtils;
 import com.didactapp.didact.entities.Book;
+import com.didactapp.didact.utils.Constants;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
@@ -38,7 +39,7 @@ public class BookRemoteGateway implements RemoteGateway<Book>, Callback<List<Boo
         this.callback = new WeakReference<>(callback);
         Call<List<Book>> call;
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        call = apiInterface.getBookList();
+        call = apiInterface.getBookList(Constants.AUTHENTICATION_KEY);
         call.enqueue(this);
     }
 

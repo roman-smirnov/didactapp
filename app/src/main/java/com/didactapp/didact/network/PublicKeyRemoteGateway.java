@@ -1,13 +1,11 @@
 package com.didactapp.didact.network;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.apkfuns.logutils.LogUtils;
-import com.didactapp.didact.entities.Section;
+import com.didactapp.didact.entities.AuthenticationKey;
 
 import java.lang.ref.WeakReference;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -17,40 +15,41 @@ import retrofit2.Response;
  * Created by roman on 12/03/2018.
  */
 
-public class SectionRemoteGateway implements RemoteGateway<Section>, Callback<List<Section>> {
+public class PublicKeyRemoteGateway implements AuthenticationGateway<AuthenticationKey>, Callback<AuthenticationKey> {
 
-    private static SectionRemoteGateway INSTANCE = null;
+    private static PublicKeyRemoteGateway INSTANCE = null;
 
-    private WeakReference<RemoteGatewayCallback<Section>> callback = null;
+    private WeakReference<AuthenticationGatewayCallback<AuthenticationKey>> callback = null;
 
-    private SectionRemoteGateway() {
+    private PublicKeyRemoteGateway() {
     }
 
-
-    public static SectionRemoteGateway getInstance() {
+    // TODO: HANDLE CASE OF ERRORS
+    public static PublicKeyRemoteGateway getInstance() {
         if (INSTANCE == null) {
-            INSTANCE = new SectionRemoteGateway();
+            INSTANCE = new PublicKeyRemoteGateway();
         }
         return INSTANCE;
     }
 
     @Override
-    public void getItemList(@NonNull RemoteGatewayCallback<Section> callback) {
+    public void getItem(@NonNull AuthenticationGatewayCallback<AuthenticationKey> callback) {
         this.callback = new WeakReference<>(callback);
-        Call<List<Section>> call;
+        Call<AuthenticationKey> call;
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        call = apiInterface.getSectionList();
+        call = apiInterface.getPublicKey();
         call.enqueue(this);
     }
 
     @Override
-    public void onResponse(Call<List<Section>> call, Response<List<Section>> response) {
+    public void onResponse(Call<AuthenticationKey> call, Response<AuthenticationKey> response) {
         if (callback != null && callback.get() != null) {
             // response.isSuccessful() is true if the response code is 2xx
             if (response.isSuccessful()) {
-                List<Section> sectionList = response.body();
+                AuthenticationKey sectionList = response.body();
                 callback.get().onRemoteLoadRSuccess(sectionList);
-            } else if (response.body() == null || response.body().isEmpty()) {
+
+            } else if (response.body() == null) {
                 callback.get().onRemoteDataNotAvailable();
             }
         } else {
@@ -61,8 +60,8 @@ public class SectionRemoteGateway implements RemoteGateway<Section>, Callback<Li
     }
 
     @Override
-    public void onFailure(Call<List<Section>> call, Throwable t) {
-        RemoteGatewayCallback<Section> req = null;
+    public void onFailure(Call<AuthenticationKey> call, Throwable t) {
+        AuthenticationGatewayCallback<AuthenticationKey> req = null;
         if (callback != null) {
             req = callback.get();
         }
@@ -70,5 +69,4 @@ public class SectionRemoteGateway implements RemoteGateway<Section>, Callback<Li
             req.onRemoteLoadFailed();
         }
     }
-
 }

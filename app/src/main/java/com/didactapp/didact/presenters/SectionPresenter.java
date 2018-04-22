@@ -47,11 +47,6 @@ public final class SectionPresenter extends ViewModel implements SectionContract
         view = null;
     }
 
-//    @Override
-//    public void openSectionDetails(Section requestedSection) {
-////        TODO: implement this
-////        view.showSectionDetailsUi();
-//    }
 
     @Override
     public void update() {
@@ -59,6 +54,7 @@ public final class SectionPresenter extends ViewModel implements SectionContract
             return;
         }
         hideAll();
+        LogUtils.d("update");
         view.showSpinner();
         view.checkNetworkState();
 
@@ -94,10 +90,10 @@ public final class SectionPresenter extends ViewModel implements SectionContract
         if (view == null) {
             return;
         }
-        view.hideSpinner();
         this.sectionList = sectionList;
         view.showSections(sectionList);
         localGateway.storeItemList(sectionList);
+        view.hideSpinner();
     }
 
     @Override
@@ -138,6 +134,7 @@ public final class SectionPresenter extends ViewModel implements SectionContract
         if (view == null) {
             return;
         }
+        view.hideSpinner();
         view.showSections(sectionList);
 
     }
@@ -147,6 +144,7 @@ public final class SectionPresenter extends ViewModel implements SectionContract
         if (view == null) {
             return;
         }
+        view.hideSpinner();
         view.showNoContent();
     }
 
@@ -155,6 +153,7 @@ public final class SectionPresenter extends ViewModel implements SectionContract
         if (view == null) {
             return;
         }
+        view.hideSpinner();
         view.showNoContent();
     }
 

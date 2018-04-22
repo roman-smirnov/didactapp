@@ -46,8 +46,6 @@ public class RecyclerViewSectionAdapter extends RecyclerView.Adapter<RecyclerVie
         if (name != null) {
             holder.name.setText(name);
         }
-
-        holder.number.setText(String.valueOf(sectionAtPosition.getSectionNum()));
     }
 
     @Override
@@ -55,7 +53,7 @@ public class RecyclerViewSectionAdapter extends RecyclerView.Adapter<RecyclerVie
         return this.sectionList.size();
     }
 
-    public int getSectionId(int position) {
-        return sectionList.get(position).getChapterId();
+    public Section getSection(int position) {
+        return sectionList.get(position);
     }
 }

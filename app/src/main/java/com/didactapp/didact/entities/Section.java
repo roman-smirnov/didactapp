@@ -3,6 +3,7 @@ package com.didactapp.didact.entities;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
 
+
 import com.didactapp.didact.models.SectionModel;
 
 import static android.arch.persistence.room.ForeignKey.CASCADE;

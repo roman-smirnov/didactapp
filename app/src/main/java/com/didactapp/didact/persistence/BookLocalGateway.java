@@ -85,7 +85,6 @@ public class BookLocalGateway implements LocalGateway<Book> {
                         try {
                             appDatabase.bookDao().insert(book);
                         } catch (SQLiteConstraintException e) {
-//                            TODO: DON'T EVER CATCH AND DO NOTHING!
                         }
                     }
                 }
