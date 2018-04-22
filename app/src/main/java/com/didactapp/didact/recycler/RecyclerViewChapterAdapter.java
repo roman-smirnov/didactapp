@@ -34,8 +34,15 @@ public class RecyclerViewChapterAdapter extends RecyclerView.Adapter<RecyclerVie
     @Override
     public void onBindViewHolder(RecyclerViewChapterHolder holder, int position) {
         Chapter chapterAtPosition = chapterList.get(position);
-        holder.name.setText(chapterAtPosition.getName());
-        holder.description.setText(chapterAtPosition.getDescription());
+        String name = chapterAtPosition.getName();
+        if (name != null) {
+            holder.name.setText(name);
+        }
+
+        String desc = chapterAtPosition.getDescription();
+        if (desc != null) {
+            holder.description.setText(desc);
+        }
 
 //        TODO: find a way to move picasso out of here and remove global context variable
         Picasso.with(context)
