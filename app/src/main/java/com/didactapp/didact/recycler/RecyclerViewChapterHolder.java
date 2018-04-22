@@ -8,7 +8,8 @@ import android.widget.TextView;
 import com.didactapp.didact.R;
 
 
-class RecyclerViewChapterHolder extends RecyclerView.ViewHolder {
+class
+RecyclerViewChapterHolder extends RecyclerView.ViewHolder {
 
     ImageView image;
     TextView name;

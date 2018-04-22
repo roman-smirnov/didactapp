@@ -8,10 +8,10 @@
         android:id="@+id/chapter_image"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_gravity="center_horizontal"
         android:adjustViewBounds="true"
         android:contentDescription="@string/chapter_thumbnail_image"
-        android:scaleType="centerCrop"
+        android:scaleType="fitCenter"
         android:src="@drawable/ic_book" />
 
     <TextView

@@ -3,13 +3,15 @@
     "chapterId": 9,
     "bookId": 9,
     "thumbnailUrl": "https:\/didactapp.com\/api\/images\/",
-    "description": "here's what you'll learn:",
+    "name": "Introduction",
+    "description": "it's the best chapter ever",
     "chapterNum": 0
   },
   {
     "chapterId": 8,
     "bookId": 8,
     "thumbnailUrl": "https:\/didactapp.com\/api\/images\/",
+    "name": "Learning The World",
     "description": "here's what you'll learn:",
     "chapterNum": 0
   },
@@ -17,6 +19,7 @@
     "chapterId": 3,
     "bookId": 3,
     "thumbnailUrl": "https:\/didactapp.com\/api\/images\/",
+    "name": "Learning The World",
     "description": "here's what you'll learn:",
     "chapterNum": 0
   },
@@ -24,6 +27,7 @@
     "chapterId": 1,
     "bookId": 1,
     "thumbnailUrl": "https:\/didactapp.com\/api\/images\/",
+    "name": "Generic Meta Programming",
     "description": "here's what you'll learn:",
     "chapterNum": 0
   },

@@ -23,11 +23,11 @@ import java.util.List;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import static com.didactapp.didact.utils.Constants.BOOK_ID_INTENT_KEY;
+import static com.didactapp.didact.utils.Constants.NO_SUCH_BOOK;
 
 public class ChapterActivity extends BaseActivity implements ChapterContract.View, SwipeRefreshLayout.OnRefreshListener, View.OnClickListener {
 
     private static final int NUM_OF_COLUMNS = 1;
-    private static final int DEFAULT_EXTRA_VAL = -1;
 
 
 
@@ -52,6 +52,9 @@ public class ChapterActivity extends BaseActivity implements ChapterContract.Vie
         noNetworkSnackbar = Snackbar.make(swipeRefreshLayout, R.string.error_no_network, Snackbar.LENGTH_INDEFINITE);
         loadErrorSnackbar = Snackbar.make(swipeRefreshLayout, R.string.error_loading, Snackbar.LENGTH_INDEFINITE);
 
+        /* set swipe refresh listener */
+        swipeRefreshLayout.setOnRefreshListener(this);
+
         /* init recycler view */
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, NUM_OF_COLUMNS);
         recycler.setHasFixedSize(true);
@@ -67,7 +70,7 @@ public class ChapterActivity extends BaseActivity implements ChapterContract.Vie
 
         presenter.takeView(this);
 
-        int bookId = getIntent().getIntExtra(BOOK_ID_INTENT_KEY, DEFAULT_EXTRA_VAL);
+        int bookId = getIntent().getIntExtra(BOOK_ID_INTENT_KEY, NO_SUCH_BOOK);
         presenter.loadChapters(bookId);
     }
 

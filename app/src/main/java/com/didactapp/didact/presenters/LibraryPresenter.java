@@ -99,7 +99,6 @@ public final class LibraryPresenter extends ViewModel implements LibraryContract
         if (view == null) {
             return;
         }
-
         if (bookList != null) {
             view.showBooks(bookList);
         } else {

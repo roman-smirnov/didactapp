@@ -2,6 +2,7 @@ package com.didactapp.didact.presenters;
 
 import android.support.annotation.NonNull;
 
+import com.apkfuns.logutils.LogUtils;
 import com.didactapp.didact.contracts.ChapterContract;
 import com.didactapp.didact.entities.Chapter;
 import com.didactapp.didact.network.ChapterRemoteGateway;
@@ -11,6 +12,8 @@ import com.didactapp.didact.persistence.LocalGatewayCallback;
 
 import java.util.List;
 
+import static com.didactapp.didact.utils.Constants.NO_SUCH_BOOK;
+
 /**
  * class to handle books presentation logic
  */
@@ -18,7 +21,7 @@ public final class ChapterPresenter implements ChapterContract.Presenter, Remote
     private ChapterContract.View view = null;
     private ChapterRemoteGateway remoteGateway;
     private ChapterLocalGateway localGateway;
-    private List<Chapter> bookList = null;
+    private List<Chapter> chapterList = null;
 
     public ChapterPresenter(@NonNull ChapterRemoteGateway remoteGateway, @NonNull ChapterLocalGateway localGateway) {
         this.remoteGateway = remoteGateway;
@@ -32,7 +35,6 @@ public final class ChapterPresenter implements ChapterContract.Presenter, Remote
             return;
         }
         this.view = view;
-        update();
     }
 
     @Override
@@ -66,8 +68,8 @@ public final class ChapterPresenter implements ChapterContract.Presenter, Remote
         view.hideSpinner();
         view.showNoNetwork();
 
-        if (bookList != null) {
-            view.showChapters(bookList);
+        if (chapterList != null) {
+            view.showChapters(chapterList);
         } else {
             localGateway.getItemList(this);
         }
@@ -83,14 +85,16 @@ public final class ChapterPresenter implements ChapterContract.Presenter, Remote
     }
 
     @Override
-    public void onRemoteLoadRSuccess(List<Chapter> bookList) {
+    public void onRemoteLoadRSuccess(List<Chapter> chapterList) {
         if (view == null) {
             return;
         }
         view.hideSpinner();
-        this.bookList = bookList;
-        view.showChapters(bookList);
-        localGateway.storeItemList(bookList);
+        this.chapterList = chapterList;
+        view.showChapters(chapterList);
+        localGateway.storeItemList(chapterList);
+        LogUtils.d("onRemoteLoadSuccess");
+
     }
 
     @Override
@@ -99,16 +103,19 @@ public final class ChapterPresenter implements ChapterContract.Presenter, Remote
             return;
         }
 
-        if (bookList != null) {
-            view.showChapters(bookList);
+        if (chapterList != null) {
+            view.showChapters(chapterList);
         } else {
             view.showNoContent();
         }
+        LogUtils.d("onRemoteDataNotAvailable");
     }
 
     @Override
     public void onRemoteLoadFailed() {
         view.showLoadError();
+        LogUtils.d("onRemoteLoadFailed");
+
     }
 
     private void hideAll() {
@@ -154,8 +161,10 @@ public final class ChapterPresenter implements ChapterContract.Presenter, Remote
 
     @Override
     public void loadChapters(int bookId) {
-        if (bookId != -1) { // TODO: move iron number to constants
-            return; // TODO: call no content instead
+        if (bookId == NO_SUCH_BOOK || view == null) {
+            hideAll();
+            view.showNoContent();
+            return;
         }
         //        TODO: impl actual get call with bookId
         update();
