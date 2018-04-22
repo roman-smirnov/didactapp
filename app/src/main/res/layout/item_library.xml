@@ -19,16 +19,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:paddingTop="@dimen/layout_item_divider"
-        android:text="@string/placeholder_title" />
+        android:paddingTop="@dimen/layout_grid_divider"
+        android:text="@string/placeholder_title"
+        android:textColor="@color/colorTextSecondary" />
 
     <TextView
         android:id="@+id/book_tagline"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:paddingTop="@dimen/layout_item_divider"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal|bottom"
+        android:gravity="center_horizontal|bottom"
+        android:paddingBottom="@dimen/layout_content_divider"
         android:text="@string/placeholder_tagline"
+        android:paddingTop="@dimen/layout_grid_divider"
         android:textSize="@dimen/typography_body2" />
 
 

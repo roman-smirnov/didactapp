@@ -60,5 +60,8 @@
     <dimen name="grid_list_text_size">16sp</dimen>
 
     <dimen name="spinner_size">160dp</dimen>
+    <dimen name="max_list_image_height">128dp</dimen>
+    <dimen name="illustration_height">256dp</dimen>
+    <dimen name="illustration_width">256dp</dimen>
 
 </resources>

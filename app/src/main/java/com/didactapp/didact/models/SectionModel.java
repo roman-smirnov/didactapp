@@ -2,30 +2,22 @@ package com.didactapp.didact.models;
 
 public abstract class SectionModel {
 
-    /* main fields */
     protected final int sectionId;
     protected final int chapterId;
     protected final int sectionNum;
     protected final boolean isComplete;
     protected final String name;
-
-    /* learning content */
     protected final String videoUrl;
     protected final String explanation;
     protected final String imageUrl;
-
-    /* multiple choice question */
     protected final String question;
     protected final String wrongAnswer1;
     protected final String wrongAnswer2;
     protected final String wrongAnswer3;
     protected final String correctAnswer;
 
-    public SectionModel(int sectionId, int chapterId, int sectionNum, boolean isComplete,
-                        String name, String videoUrl, String explanation, String imageUrl,
-                        String question, String wrongAnswer1, String wrongAnswer2,
-                        String wrongAnswer3, String correctAnswer) {
 
+    public SectionModel(int sectionId, int chapterId, int sectionNum, boolean isComplete, String name, String videoUrl, String explanation, String imageUrl, String question, String wrongAnswer1, String wrongAnswer2, String wrongAnswer3, String correctAnswer) {
         this.sectionId = sectionId;
         this.chapterId = chapterId;
         this.sectionNum = sectionNum;

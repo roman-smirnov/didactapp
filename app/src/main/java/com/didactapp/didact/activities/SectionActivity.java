@@ -18,6 +18,7 @@ import com.didactapp.didact.network.SectionRemoteGateway;
 import com.didactapp.didact.persistence.SectionLocalGateway;
 import com.didactapp.didact.presenters.SectionPresenter;
 import com.didactapp.didact.recycler.RecyclerViewSectionAdapter;
+import com.google.gson.Gson;
 
 import java.util.List;
 
@@ -25,6 +26,7 @@ import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import static com.didactapp.didact.utils.Constants.CHAPTER_ID_INTENT_KEY;
 import static com.didactapp.didact.utils.Constants.NO_SUCH_CHAPTER;
+import static com.didactapp.didact.utils.Constants.SECTION_ID_INTENT_KEY;
 
 public class SectionActivity extends BaseActivity implements SectionContract.View, SwipeRefreshLayout.OnRefreshListener, View.OnClickListener {
 
@@ -51,12 +53,13 @@ public class SectionActivity extends BaseActivity implements SectionContract.Vie
         noNetworkSnackbar = Snackbar.make(swipeRefreshLayout, R.string.error_no_network, Snackbar.LENGTH_INDEFINITE);
         loadErrorSnackbar = Snackbar.make(swipeRefreshLayout, R.string.error_loading, Snackbar.LENGTH_INDEFINITE);
 
+        /* set swipe refresh listener */
+        swipeRefreshLayout.setOnRefreshListener(this);
 
         /* init recyclerView view */
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, NUM_OF_COLUMNS);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(gridLayoutManager);
-        recyclerView.addItemDecoration(new DividerItemDecoration(this, RecyclerView.VERTICAL));
         recyclerView.addItemDecoration(new DividerItemDecoration(this, RecyclerView.HORIZONTAL));
 
         /* retrieve or create presenter */
@@ -167,9 +170,11 @@ public class SectionActivity extends BaseActivity implements SectionContract.Vie
 
     @Override
     public void onClick(View v) {
-//        TODO: LAUNCH DETAIL ACTIVITY HERE
-//        int pos = recyclerView.getChildAdapterPosition(v);
-//        int bookId = ((RecyclerViewBookAdapter) recyclerView.getAdapter()).getBookId(pos);
-//        launchActivity(this, ChapterActivity.class, INTENT_KEY, bookId);
+        int pos = recyclerView.getChildAdapterPosition(v);
+        Section selectedSection = ((RecyclerViewSectionAdapter) recyclerView.getAdapter()).getSection(pos);
+        Gson gson = new Gson();
+        String sectionAsJson = gson.toJson(selectedSection);
+        launchActivity(this, SectionDetailActivity.class, SECTION_ID_INTENT_KEY, sectionAsJson);
+
     }
 }

@@ -49,7 +49,6 @@ public class SectionRemoteGateway implements RemoteGateway<Section>, Callback<Li
             // response.isSuccessful() is true if the response code is 2xx
             if (response.isSuccessful()) {
                 List<Section> sectionList = response.body();
-                LogUtils.d(response.body());
                 callback.get().onRemoteLoadRSuccess(sectionList);
             } else if (response.body() == null || response.body().isEmpty()) {
                 callback.get().onRemoteDataNotAvailable();

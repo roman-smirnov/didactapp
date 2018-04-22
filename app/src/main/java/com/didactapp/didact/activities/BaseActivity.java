@@ -22,6 +22,12 @@ public abstract class BaseActivity extends AppCompatActivity {
         activityFrom.startActivity(intent);
     }
 
+    public static void launchActivity(BaseActivity activityFrom, Class<? extends BaseActivity> activityTo, String key, String value) {
+        Intent intent = new Intent(activityFrom, activityTo);
+        intent.putExtra(key, value);
+        activityFrom.startActivity(intent);
+    }
+
     protected boolean isNetworkConnected() {
         ConnectivityManager conMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         // ARE WE CONNECTED TO THE NET
