@@ -2,8 +2,12 @@ package com.didactapp.didact.presenters;
 
 import android.arch.lifecycle.ViewModel;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
+import com.apkfuns.logutils.LogUtils;
+import com.didactapp.didact.contracts.ChapterContract;
 import com.didactapp.didact.contracts.SectionContract;
+import com.didactapp.didact.entities.Chapter;
 import com.didactapp.didact.entities.Section;
 import com.didactapp.didact.network.RemoteGatewayCallback;
 import com.didactapp.didact.network.SectionRemoteGateway;
@@ -11,6 +15,9 @@ import com.didactapp.didact.persistence.LocalGatewayCallback;
 import com.didactapp.didact.persistence.SectionLocalGateway;
 
 import java.util.List;
+
+import static com.didactapp.didact.utils.Constants.NO_SUCH_BOOK;
+import static com.didactapp.didact.utils.Constants.NO_SUCH_CHAPTER;
 
 /**
  * class to handle books presentation logic
@@ -33,7 +40,6 @@ public final class SectionPresenter extends ViewModel implements SectionContract
             return;
         }
         this.view = view;
-        update();
     }
 
     @Override
@@ -41,16 +47,11 @@ public final class SectionPresenter extends ViewModel implements SectionContract
         view = null;
     }
 
-    @Override
-    public void openSectionDetails(Section requestedSection) {
-//         TODO impl this
-    }
-
-    @Override
-    public void onSectionsLoaded(List<Section> sectionList) {
-//
-    }
-
+//    @Override
+//    public void openSectionDetails(Section requestedSection) {
+////        TODO: implement this
+////        view.showSectionDetailsUi();
+//    }
 
     @Override
     public void update() {
@@ -89,14 +90,14 @@ public final class SectionPresenter extends ViewModel implements SectionContract
     }
 
     @Override
-    public void onRemoteLoadRSuccess(List<Section> bookList) {
+    public void onRemoteLoadRSuccess(List<Section> sectionList) {
         if (view == null) {
             return;
         }
         view.hideSpinner();
-        this.sectionList = bookList;
-        view.showSections(bookList);
-        localGateway.storeItemList(bookList);
+        this.sectionList = sectionList;
+        view.showSections(sectionList);
+        localGateway.storeItemList(sectionList);
     }
 
     @Override
@@ -104,17 +105,21 @@ public final class SectionPresenter extends ViewModel implements SectionContract
         if (view == null) {
             return;
         }
-
+        view.hideSpinner();
         if (sectionList != null) {
             view.showSections(sectionList);
         } else {
             view.showNoContent();
         }
+        LogUtils.d("onRemoteDataNotAvailable");
     }
 
     @Override
     public void onRemoteLoadFailed() {
         view.showLoadError();
+        view.hideSpinner();
+        LogUtils.d("onRemoteLoadFailed");
+
     }
 
     private void hideAll() {
@@ -129,11 +134,11 @@ public final class SectionPresenter extends ViewModel implements SectionContract
     }
 
     @Override
-    public void onLocalLoadRSuccess(List<Section> bookList) {
+    public void onLocalLoadRSuccess(List<Section> sectionList) {
         if (view == null) {
             return;
         }
-        view.showSections(bookList);
+        view.showSections(sectionList);
 
     }
 
@@ -151,5 +156,21 @@ public final class SectionPresenter extends ViewModel implements SectionContract
             return;
         }
         view.showNoContent();
+    }
+
+    @Override
+    public void onSectionSelected(Section requestedSection) {
+//        TODO: impl this
+    }
+
+    @Override
+    public void loadSections(int bookId) {
+        if (bookId == NO_SUCH_CHAPTER || view == null) {
+            hideAll();
+            view.showNoContent();
+            return;
+        }
+        //        TODO: impl actual get call with bookId
+        update();
     }
 }

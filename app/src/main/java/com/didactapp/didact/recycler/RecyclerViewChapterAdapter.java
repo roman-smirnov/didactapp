@@ -17,16 +17,22 @@ import java.util.List;
 public class RecyclerViewChapterAdapter extends RecyclerView.Adapter<RecyclerViewChapterHolder> {
     private List<Chapter> chapterList;
     private Context context;
+    private View.OnClickListener clickListener;
 
-    public RecyclerViewChapterAdapter(Context context, List<Chapter> chapterList) {
-        this.chapterList = chapterList;
+
+    public RecyclerViewChapterAdapter(Context context, List<Chapter> chapterList, View.OnClickListener clickListener) {
         this.context = context;
+        this.chapterList = chapterList;
+        this.clickListener = clickListener;
+
+
     }
 
     @Override
     public RecyclerViewChapterHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_chapter, null);
+        layoutView.setOnClickListener(clickListener);
         RecyclerViewChapterHolder recyclerViewHolder = new RecyclerViewChapterHolder(layoutView);
         return recyclerViewHolder;
     }
@@ -59,6 +65,10 @@ public class RecyclerViewChapterAdapter extends RecyclerView.Adapter<RecyclerVie
 
     public interface OnItemClicked {
         void onItemClick(int position);
+    }
+
+    public int getChapterId(int position) {
+        return chapterList.get(position).getChapterId();
     }
 
 }

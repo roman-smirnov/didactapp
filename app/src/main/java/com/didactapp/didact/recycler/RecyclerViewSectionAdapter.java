@@ -27,7 +27,7 @@ public class RecyclerViewSectionAdapter extends RecyclerView.Adapter<RecyclerVie
     @Override
     public RecyclerViewSectionHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_library, null);
+        View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_section, null);
         layoutView.setOnClickListener(clickListener);
         RecyclerViewSectionHolder recyclerViewHolder = new RecyclerViewSectionHolder(layoutView);
         return recyclerViewHolder;
@@ -37,8 +37,17 @@ public class RecyclerViewSectionAdapter extends RecyclerView.Adapter<RecyclerVie
     public void onBindViewHolder(RecyclerViewSectionHolder holder, int position) {
 
         Section sectionAtPosition = sectionList.get(position);
-        holder.name.setText(sectionAtPosition.getName());
-        holder.number.setText(sectionAtPosition.getSectionNum());
+
+        if (sectionAtPosition == null || holder == null) {
+            return;
+        }
+
+        String name = sectionAtPosition.getName();
+        if (name != null) {
+            holder.name.setText(name);
+        }
+
+        holder.number.setText(String.valueOf(sectionAtPosition.getSectionNum()));
     }
 
     @Override
@@ -46,5 +55,7 @@ public class RecyclerViewSectionAdapter extends RecyclerView.Adapter<RecyclerVie
         return this.sectionList.size();
     }
 
-
+    public int getSectionId(int position) {
+        return sectionList.get(position).getChapterId();
+    }
 }

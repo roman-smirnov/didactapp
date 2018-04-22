@@ -30,9 +30,9 @@ public interface SectionContract {
     }
 
     interface Presenter extends BasePresenter<View> {
-        void openSectionDetails(Section requestedSection);
+        void onSectionSelected(Section requestedSection);
 
-        void onSectionsLoaded(List<Section> sectionList);
+        void loadSections(int chapterId);
 
 
     }

@@ -2,51 +2,57 @@
   {
     "chapterId": 9,
     "sectionId": 9,
-    "sectionNum": 0
+    "sectionNum": 0,
+    "name": "best section ever"
   },
   {
     "chapterId": 8,
     "sectionId": 8,
-    "sectionNum": 0
+    "sectionNum": 1,
+    "name": "best section ever - the second"
+
   },
   {
     "chapterId": 3,
-    "sectionId": 3,
-    "sectionNum": 0
+    "sectionId": 2001,
+    "sectionNum": 2,
+    "name": "another section"
+
   },
   {
     "chapterId": 1,
     "sectionId": 1,
-    "sectionNum": 0
+    "sectionNum": 3,
+    "name": "sectioooooonnnnnnn"
   },
   {
     "chapterId": 2,
-    "sectionId": 2,
-    "sectionNum": 0
+    "sectionId": 727,
+    "sectionNum": 4
   },
   {
     "chapterId": 4,
     "sectionId": 4,
-    "sectionNum": 0
+    "sectionNum": 5
   },
   {
     "chapterId": 7,
     "sectionId": 7,
-    "sectionNum": 0
+    "sectionNum": 6
   },
   {
     "chapterId": 5,
     "sectionId": 5,
-    "sectionNum": 0
+    "sectionNum": 7
   },
   {
     "chapterId": 8053,
     "sectionId": 8053,
-    "sectionNum": 0
+    "sectionNum": 8
   },
   {
     "chapterId": 6,
     "sectionId": 6,
-    "sectionNum": 0
+    "sectionNum": 9
   }
 ]

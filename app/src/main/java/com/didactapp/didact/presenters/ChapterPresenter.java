@@ -93,13 +93,6 @@ public final class ChapterPresenter implements ChapterContract.Presenter, Remote
         this.chapterList = chapterList;
         view.showChapters(chapterList);
         localGateway.storeItemList(chapterList);
-        LogUtils.d("onRemoteLoadSuccess");
-
-        for (Chapter chapter : chapterList) {
-            LogUtils.d(chapter);
-
-        }
-
     }
 
     @Override

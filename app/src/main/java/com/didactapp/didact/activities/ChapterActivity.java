@@ -16,6 +16,7 @@ import com.didactapp.didact.entities.Chapter;
 import com.didactapp.didact.network.ChapterRemoteGateway;
 import com.didactapp.didact.persistence.ChapterLocalGateway;
 import com.didactapp.didact.presenters.ChapterPresenter;
+import com.didactapp.didact.recycler.RecyclerViewBookAdapter;
 import com.didactapp.didact.recycler.RecyclerViewChapterAdapter;
 
 import java.util.List;
@@ -23,6 +24,7 @@ import java.util.List;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import static com.didactapp.didact.utils.Constants.BOOK_ID_INTENT_KEY;
+import static com.didactapp.didact.utils.Constants.CHAPTER_ID_INTENT_KEY;
 import static com.didactapp.didact.utils.Constants.NO_SUCH_BOOK;
 
 public class ChapterActivity extends BaseActivity implements ChapterContract.View, SwipeRefreshLayout.OnRefreshListener, View.OnClickListener {
@@ -83,7 +85,7 @@ public class ChapterActivity extends BaseActivity implements ChapterContract.Vie
 
     @Override
     public void showChapters(List<Chapter> chapterList) {
-        RecyclerViewChapterAdapter recyclerViewAdapter = new RecyclerViewChapterAdapter(this, chapterList);
+        RecyclerViewChapterAdapter recyclerViewAdapter = new RecyclerViewChapterAdapter(this, chapterList, this);
         recycler.swapAdapter(recyclerViewAdapter, false);
         recycler.setVisibility(VISIBLE);
     }
@@ -172,6 +174,8 @@ public class ChapterActivity extends BaseActivity implements ChapterContract.Vie
 
     @Override
     public void onClick(View v) {
-//        TODO impl this
+        int pos = recycler.getChildAdapterPosition(v);
+        int chapterId = ((RecyclerViewChapterAdapter) recycler.getAdapter()).getChapterId(pos);
+        launchActivity(this, SectionActivity.class, CHAPTER_ID_INTENT_KEY, chapterId);
     }
 }

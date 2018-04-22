@@ -10,25 +10,25 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import com.apkfuns.logutils.LogUtils;
 import com.didactapp.didact.R;
 import com.didactapp.didact.contracts.SectionContract;
 import com.didactapp.didact.entities.Section;
 import com.didactapp.didact.network.SectionRemoteGateway;
 import com.didactapp.didact.persistence.SectionLocalGateway;
 import com.didactapp.didact.presenters.SectionPresenter;
-import com.didactapp.didact.recycler.RecyclerViewBookAdapter;
 import com.didactapp.didact.recycler.RecyclerViewSectionAdapter;
 
 import java.util.List;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
+import static com.didactapp.didact.utils.Constants.CHAPTER_ID_INTENT_KEY;
+import static com.didactapp.didact.utils.Constants.NO_SUCH_CHAPTER;
 
 public class SectionActivity extends BaseActivity implements SectionContract.View, SwipeRefreshLayout.OnRefreshListener, View.OnClickListener {
 
     private static final int NUM_OF_COLUMNS = 1;
-    private static final String INTENT_KEY = "bookId";
-    private static final String DATABASE_NAME = "book_db";
 
     private RecyclerView recyclerView;
     private TextView noContentView;
@@ -45,9 +45,9 @@ public class SectionActivity extends BaseActivity implements SectionContract.Vie
 
 
         /* get layout elements */
-        recyclerView = findViewById(R.id.chapter_list);
-        swipeRefreshLayout = findViewById(R.id.library_swipe_refresh);
-        noContentView = findViewById(R.id.library_no_content);
+        recyclerView = findViewById(R.id.section_list);
+        swipeRefreshLayout = findViewById(R.id.section_swipe_refresh);
+        noContentView = findViewById(R.id.section_no_content);
         noNetworkSnackbar = Snackbar.make(swipeRefreshLayout, R.string.error_no_network, Snackbar.LENGTH_INDEFINITE);
         loadErrorSnackbar = Snackbar.make(swipeRefreshLayout, R.string.error_loading, Snackbar.LENGTH_INDEFINITE);
 
@@ -66,6 +66,16 @@ public class SectionActivity extends BaseActivity implements SectionContract.Vie
         }
 
         presenter.takeView(this);
+
+        int chapterId = getIntent().getIntExtra(CHAPTER_ID_INTENT_KEY, NO_SUCH_CHAPTER);
+        LogUtils.d(chapterId);
+        presenter.loadSections(chapterId);
+    }
+
+    /* save the presenter on screen rotation */
+    @Override
+    public Object onRetainCustomNonConfigurationInstance() {
+        return presenter;
     }
 
     @Override
@@ -157,8 +167,9 @@ public class SectionActivity extends BaseActivity implements SectionContract.Vie
 
     @Override
     public void onClick(View v) {
-        int pos = recyclerView.getChildAdapterPosition(v);
-        int bookId = ((RecyclerViewBookAdapter) recyclerView.getAdapter()).getBookId(pos);
-        launchActivity(this, ChapterActivity.class, INTENT_KEY, bookId);
+//        TODO: LAUNCH DETAIL ACTIVITY HERE
+//        int pos = recyclerView.getChildAdapterPosition(v);
+//        int bookId = ((RecyclerViewBookAdapter) recyclerView.getAdapter()).getBookId(pos);
+//        launchActivity(this, ChapterActivity.class, INTENT_KEY, bookId);
     }
 }

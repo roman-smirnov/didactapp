@@ -38,5 +38,6 @@
     <string name="placeholder_question">Question</string>
     <string name="content_illustration">illustration image</string>
     <string name="chapters_no_content">No chapters to show</string>
+    <string name="section_no_content">No sections to show</string>
 
 </resources>

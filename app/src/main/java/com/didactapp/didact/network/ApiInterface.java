@@ -18,6 +18,6 @@ public interface ApiInterface {
     @GET("chapters.json")
     Call<List<Chapter>> getChapterList();
 
-    @GET("section.json")
+    @GET("sections.json")
     Call<List<Section>> getSectionList();
 }

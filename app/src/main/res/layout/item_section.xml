@@ -1,14 +1,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/card_view"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="horizontal">
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/section_state"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/screen_edge_content_margin"
         app:lottie_autoPlay="true"
         app:lottie_fileName="chapter.json"
@@ -17,15 +16,15 @@
     <TextView
         android:id="@+id/section_name"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="center"
         android:paddingTop="@dimen/layout_item_divider"
         android:text="@string/untitled_section" />
 
     <TextView
-        android:id="@+id/section_num"
+        android:id="@+id/section_number"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:paddingHorizontal="@dimen/horizontal_margin"
         android:gravity="center"
         android:paddingTop="@dimen/layout_item_divider"

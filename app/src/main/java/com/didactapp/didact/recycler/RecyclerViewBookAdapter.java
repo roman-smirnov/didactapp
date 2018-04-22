@@ -20,9 +20,9 @@ public class RecyclerViewBookAdapter extends RecyclerView.Adapter<RecyclerViewBo
     private View.OnClickListener clickListener;
 
     public RecyclerViewBookAdapter(Context context, List<Book> bookList, View.OnClickListener clickListener) {
-        this.clickListener = clickListener;
-        this.bookList = bookList;
         this.context = context;
+        this.bookList = bookList;
+        this.clickListener = clickListener;
     }
 
     @Override
