@@ -68,7 +68,7 @@ package com.didactapp.didact.presenters;//package com.didactapp.didact.presenter
 //        if (sectionList != null) {
 //            view.showSections(sectionList);
 //        } else {
-//            localGateway.getItemList(this);
+//            localGateway.getFromRemote(this);
 //        }
 //
 //    }
@@ -78,7 +78,7 @@ package com.didactapp.didact.presenters;//package com.didactapp.didact.presenter
 //        if (view == null) {
 //            return;
 //        }
-//        remoteGateway.getItemList(this);
+//        remoteGateway.getFromRemote(this);
 //    }
 //
 //    @Override

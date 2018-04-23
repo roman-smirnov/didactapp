@@ -60,7 +60,7 @@ public class LibraryActivity extends BaseActivity implements LibraryContract.Vie
         recyclerView.addItemDecoration(new DividerItemDecoration(this, RecyclerView.VERTICAL));
         recyclerView.addItemDecoration(new DividerItemDecoration(this, RecyclerView.HORIZONTAL));
 
-        /* retrieve or create presenter */
+        /* getFromRemote or create presenter */
         presenter = (LibraryContract.Presenter) getLastCustomNonConfigurationInstance();
         if (presenter == null) {
             presenter = new LibraryPresenter(BookRemoteGateway.getInstance(), BookLocalGateway.getInstance(this));

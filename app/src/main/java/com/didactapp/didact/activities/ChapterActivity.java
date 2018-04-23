@@ -16,7 +16,6 @@ import com.didactapp.didact.entities.Chapter;
 import com.didactapp.didact.network.ChapterRemoteGateway;
 import com.didactapp.didact.persistence.ChapterLocalGateway;
 import com.didactapp.didact.presenters.ChapterPresenter;
-import com.didactapp.didact.recycler.RecyclerViewBookAdapter;
 import com.didactapp.didact.recycler.RecyclerViewChapterAdapter;
 
 import java.util.List;
@@ -64,7 +63,7 @@ public class ChapterActivity extends BaseActivity implements ChapterContract.Vie
         recycler.addItemDecoration(new DividerItemDecoration(this, RecyclerView.VERTICAL));
         recycler.addItemDecoration(new DividerItemDecoration(this, RecyclerView.HORIZONTAL));
 
-        /* retrieve or create presenter */
+        /* getFromRemote or create presenter */
         presenter = (ChapterContract.Presenter) getLastCustomNonConfigurationInstance();
         if (presenter == null) {
             presenter = new ChapterPresenter(ChapterRemoteGateway.getInstance(), ChapterLocalGateway.getInstance(this));

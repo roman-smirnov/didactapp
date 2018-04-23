@@ -5,9 +5,7 @@ public abstract class SectionModel {
     protected final int sectionId;
     protected final int chapterId;
     protected final int sectionNum;
-    protected final boolean isComplete;
     protected final String name;
-    protected final String videoUrl;
     protected final String explanation;
     protected final String imageUrl;
     protected final String question;
@@ -17,13 +15,11 @@ public abstract class SectionModel {
     protected final String correctAnswer;
 
 
-    public SectionModel(int sectionId, int chapterId, int sectionNum, boolean isComplete, String name, String videoUrl, String explanation, String imageUrl, String question, String wrongAnswer1, String wrongAnswer2, String wrongAnswer3, String correctAnswer) {
+    public SectionModel(int sectionId, int chapterId, int sectionNum, String name, String explanation, String imageUrl, String question, String wrongAnswer1, String wrongAnswer2, String wrongAnswer3, String correctAnswer) {
         this.sectionId = sectionId;
         this.chapterId = chapterId;
         this.sectionNum = sectionNum;
-        this.isComplete = isComplete;
         this.name = name;
-        this.videoUrl = videoUrl;
         this.explanation = explanation;
         this.imageUrl = imageUrl;
         this.question = question;
@@ -45,16 +41,9 @@ public abstract class SectionModel {
         return sectionNum;
     }
 
-    public boolean isComplete() {
-        return isComplete;
-    }
 
     public String getName() {
         return name;
-    }
-
-    public String getVideoUrl() {
-        return videoUrl;
     }
 
     public String getExplanation() {

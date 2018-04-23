@@ -4,6 +4,7 @@ import com.didactapp.didact.entities.AuthenticationKey;
 import com.didactapp.didact.entities.Book;
 import com.didactapp.didact.entities.Chapter;
 import com.didactapp.didact.entities.EncryptUser;
+import com.didactapp.didact.entities.PublicKey;
 import com.didactapp.didact.entities.Section;
 
 import java.util.List;
@@ -17,7 +18,7 @@ import retrofit2.http.Path;
 public interface ApiInterface {
 
     @GET("authentication/public-key")
-    Call<AuthenticationKey> getPublicKey();
+    Call<PublicKey> getPublicKey();
 
     @POST("authentication/sign-up")
     Call<AuthenticationKey> register(@Body EncryptUser user);

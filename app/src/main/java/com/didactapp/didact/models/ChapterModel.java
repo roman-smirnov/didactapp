@@ -7,16 +7,16 @@ public abstract class ChapterModel {
     protected final int chapterNum;
     protected final String name;
     protected final String description;
-    protected final String imageUrl;
+    protected final String thumbnailUrl;
 
 
-    protected ChapterModel(int chapterId, int bookId, int chapterNum, String name, String description, String imageUrl) {
+    protected ChapterModel(int chapterId, int bookId, int chapterNum, String name, String description, String thumbNail) {
         this.chapterId = chapterId;
         this.bookId = bookId;
         this.chapterNum = chapterNum;
         this.name = name;
         this.description = description;
-        this.imageUrl = imageUrl;
+        this.thumbnailUrl = thumbNail;
     }
 
     public int getBookId() {
@@ -39,8 +39,8 @@ public abstract class ChapterModel {
         return description;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public String getThumbnailUrl() {
+        return thumbnailUrl;
     }
 
     @Override
@@ -51,7 +51,7 @@ public abstract class ChapterModel {
                 ", chapterNum=" + chapterNum +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
-                ", imageUrl='" + imageUrl + '\'' +
+                ", thumbnailUrl='" + thumbnailUrl + '\'' +
                 '}';
     }
 }

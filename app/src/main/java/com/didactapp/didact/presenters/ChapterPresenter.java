@@ -81,7 +81,7 @@ public final class ChapterPresenter implements ChapterContract.Presenter, Remote
         if (view == null) {
             return;
         }
-        remoteGateway.getItemList(this);
+        remoteGateway.getFromRemote(this);
     }
 
     @Override

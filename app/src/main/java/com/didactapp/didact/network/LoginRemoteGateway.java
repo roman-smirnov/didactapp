@@ -14,15 +14,15 @@ import retrofit2.Response;
  * Created by roman on 12/03/2018.
  */
 
-public class RegisterRemoteGateway extends BaseRemoteGateway<AuthenticationKey, EncryptUser> {
-    private static RegisterRemoteGateway INSTANCE = null;
+public class LoginRemoteGateway extends BaseRemoteGateway<AuthenticationKey, EncryptUser> {
+    private static LoginRemoteGateway INSTANCE = null;
 
-    private RegisterRemoteGateway() {
+    private LoginRemoteGateway() {
     }
 
-    public static RegisterRemoteGateway getInstance() {
+    public static LoginRemoteGateway getInstance() {
         if (INSTANCE == null) {
-            INSTANCE = new RegisterRemoteGateway();
+            INSTANCE = new LoginRemoteGateway();
         }
         return INSTANCE;
     }
@@ -34,7 +34,7 @@ public class RegisterRemoteGateway extends BaseRemoteGateway<AuthenticationKey, 
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
 
         if (reqParams.length == 1 && reqParams[0] != null) {
-            call = apiInterface.register(reqParams[0]);
+            call = apiInterface.login(reqParams[0]);
             call.enqueue(this);
         }
 
@@ -51,4 +51,5 @@ public class RegisterRemoteGateway extends BaseRemoteGateway<AuthenticationKey, 
             authKey = response.body().getKey();
         }
     }
+
 }

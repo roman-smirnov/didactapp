@@ -5,16 +5,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.apkfuns.logutils.LogUtils;
 import com.didactapp.didact.R;
 import com.didactapp.didact.entities.AuthenticationKey;
 import com.didactapp.didact.entities.EncryptUser;
 import com.didactapp.didact.entities.User;
-import com.didactapp.didact.network.AuthenticationGatewayCallback;
 import com.didactapp.didact.network.RegisterRemoteGateway;
+import com.didactapp.didact.network.RemoteGatewayCallback;
 import com.didactapp.didact.userEncrypt.JWTEncrypt;
 import com.didactapp.didact.utils.Constants;
 
-public class RegisterActivity extends BaseActivity implements View.OnClickListener, AuthenticationGatewayCallback<AuthenticationKey> {
+public class RegisterActivity extends BaseActivity implements View.OnClickListener, RemoteGatewayCallback<AuthenticationKey> {
     private EditText emailText;
     private EditText passwordText;
     private Button registerButton;
@@ -31,6 +32,8 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         registerButton = findViewById(R.id.activity_create_button);
         registerButton.setOnClickListener(this);
         registerRemoteGateway = RegisterRemoteGateway.getInstance();
+
+        /* retrieve the public key */
         publicKey = getIntent().getStringExtra("PUBLIC_KEY");
     }
 
@@ -50,8 +53,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     public void onRemoteLoadFailed() {
-        System.out.print("dd");
-
+        LogUtils.d("onRemoteLoadFailed");
     }
 
     @Override
@@ -65,7 +67,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
             User user = new User(emailText.getText().toString(), passwordText.getText().toString());
             /* encrypt and send to server */
             String encrypt = new JWTEncrypt().encrypt(publicKey, user);
-            registerRemoteGateway.getItem(this, new EncryptUser(encrypt, publicKey));
+            registerRemoteGateway.getFromRemote(this, new EncryptUser(encrypt, publicKey));
         }
 //        int a = v.getId();
 //        System.out.print(a

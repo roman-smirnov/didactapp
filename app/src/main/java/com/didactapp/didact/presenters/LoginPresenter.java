@@ -68,7 +68,7 @@
 //        if (sectionList != null) {
 //            view.showSections(sectionList);
 //        } else {
-//            localGateway.getItemList(this);
+//            localGateway.getFromRemote(this);
 //        }
 //
 //    }
@@ -78,7 +78,7 @@
 //        if (view == null) {
 //            return;
 //        }
-//        remoteGateway.getItemList(this);
+//        remoteGateway.getFromRemote(this);
 //    }
 //
 //    @Override

@@ -4,7 +4,7 @@ import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static com.didactapp.didact.utils.Constants.BASE_URL;
+import static com.didactapp.didact.utils.Constants.BASE_API_URL;
 
 /**
  * this class is used to instantiate the retrofit networking library and underling http client
@@ -22,7 +22,7 @@ public class ApiClient {
 
             /* instantiate retrofit networking library */
             retrofit = new Retrofit.Builder()
-                    .baseUrl(BASE_URL)
+                    .baseUrl(BASE_API_URL)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
         }

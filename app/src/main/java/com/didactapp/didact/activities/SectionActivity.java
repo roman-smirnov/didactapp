@@ -62,7 +62,7 @@ public class SectionActivity extends BaseActivity implements SectionContract.Vie
         recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.addItemDecoration(new DividerItemDecoration(this, RecyclerView.HORIZONTAL));
 
-        /* retrieve or create presenter */
+        /* getFromRemote or create presenter */
         presenter = (SectionContract.Presenter) getLastCustomNonConfigurationInstance();
         if (presenter == null) {
             presenter = new SectionPresenter(SectionRemoteGateway.getInstance(), SectionLocalGateway.getInstance(this));

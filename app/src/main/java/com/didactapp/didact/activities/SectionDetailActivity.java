@@ -7,7 +7,6 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.apkfuns.logutils.LogUtils;
 import com.didactapp.didact.R;
 import com.didactapp.didact.contracts.SectionDetailContract;
 import com.didactapp.didact.entities.Section;
@@ -43,7 +42,7 @@ public class SectionDetailActivity extends BaseActivity implements SectionDetail
         answer3 = findViewById(R.id.section_detail_answer3);
         answer4 = findViewById(R.id.section_detail_answer4);
 
-        /* retrieve section from intent */
+        /* getFromRemote section from intent */
         String sectioJsonString = getIntent().getStringExtra(SECTION_ID_INTENT_KEY);
         Section section = null;
         if (sectioJsonString != null) {

@@ -2,12 +2,9 @@ package com.didactapp.didact.presenters;
 
 import android.arch.lifecycle.ViewModel;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.apkfuns.logutils.LogUtils;
-import com.didactapp.didact.contracts.ChapterContract;
 import com.didactapp.didact.contracts.SectionContract;
-import com.didactapp.didact.entities.Chapter;
 import com.didactapp.didact.entities.Section;
 import com.didactapp.didact.network.RemoteGatewayCallback;
 import com.didactapp.didact.network.SectionRemoteGateway;
@@ -16,7 +13,6 @@ import com.didactapp.didact.persistence.SectionLocalGateway;
 
 import java.util.List;
 
-import static com.didactapp.didact.utils.Constants.NO_SUCH_BOOK;
 import static com.didactapp.didact.utils.Constants.NO_SUCH_CHAPTER;
 
 /**
@@ -82,7 +78,7 @@ public final class SectionPresenter extends ViewModel implements SectionContract
         if (view == null) {
             return;
         }
-        remoteGateway.getItemList(this);
+        remoteGateway.getFromRemote(this);
     }
 
     @Override

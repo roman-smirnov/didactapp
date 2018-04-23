@@ -66,7 +66,7 @@ public abstract class BookModel {
         return "BookModel{" +
                 "bookId='" + bookId + '\'' +
                 ", coverUrl='" + coverUrl + '\'' +
-                ", imageUrl='" + thumbnailUrl + '\'' +
+                ", thumbnailUrl='" + thumbnailUrl + '\'' +
                 ", title='" + title + '\'' +
                 ", tagLine='" + tagLine + '\'' +
                 ", description='" + description + '\'' +

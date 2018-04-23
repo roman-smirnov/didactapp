@@ -6,7 +6,7 @@ import android.support.annotation.NonNull;
  * Created by roman on 11/03/2018.
  */
 
-public interface RemoteGateway<T> {
+public interface RemoteGateway<T, P> {
 
-    void getItemList(@NonNull RemoteGatewayCallback<T> callback);
+    void getFromRemote(@NonNull RemoteGatewayCallback<T> callback, @NonNull P... reqParams);
 }
