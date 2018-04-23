@@ -22,6 +22,7 @@ public final class ChapterPresenter implements ChapterContract.Presenter, Remote
     private ChapterRemoteGateway remoteGateway;
     private ChapterLocalGateway localGateway;
     private List<Chapter> chapterList = null;
+    private int bookId = NO_SUCH_BOOK;
 
     public ChapterPresenter(@NonNull ChapterRemoteGateway remoteGateway, @NonNull ChapterLocalGateway localGateway) {
         this.remoteGateway = remoteGateway;
@@ -164,7 +165,6 @@ public final class ChapterPresenter implements ChapterContract.Presenter, Remote
             view.showNoContent();
             return;
         }
-        //        TODO: impl actual get call with bookId
         update();
     }
 }

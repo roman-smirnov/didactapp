@@ -76,7 +76,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             /* encrypt and send to server */
             String encrypt = new JWTEncrypt().encrypt(publicKey.getKey(), user);
             RegisterRemoteGateway registerRemoteGateway = RegisterRemoteGateway.getInstance();
-            registerRemoteGateway.getFromRemote(this, new EncryptUser(encrypt, publicKey.getKey()));
+            registerRemoteGateway.getFromRemote(getAuthenticationGatewayCallback(), new EncryptUser(encrypt, publicKey.getKey()));
         }
     }
 

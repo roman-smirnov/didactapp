@@ -12,8 +12,8 @@ import static android.arch.persistence.room.ForeignKey.CASCADE;
         childColumns = "chapterId",
         onDelete = CASCADE))
 public final class Chapter extends ChapterModel {
-    public Chapter(int chapterId, int bookId, int chapterNum, String name, String description, String imageUrl) {
-        super(chapterId, bookId, chapterNum, name, description, imageUrl);
+    public Chapter(int chapterId, int bookId, int chapterNum, String name, String description, String thumbnailUrl) {
+        super(chapterId, bookId, chapterNum, name, description, thumbnailUrl);
     }
 }
 
