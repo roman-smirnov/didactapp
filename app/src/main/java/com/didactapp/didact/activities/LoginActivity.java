@@ -43,6 +43,8 @@ public class LoginActivity extends BaseActivity {
         });
     }
 
+//    TODO implement login call (just like register but dif err)
+
     @Override
     protected void onStart() {
         super.onStart();

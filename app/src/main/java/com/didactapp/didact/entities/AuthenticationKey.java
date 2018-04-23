@@ -11,3 +11,5 @@ public final class AuthenticationKey {
         return key;
     }
 }
+
+// TODO clea nthe mess - make a model in line with rest

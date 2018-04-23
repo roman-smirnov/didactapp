@@ -9,5 +9,4 @@ import android.support.annotation.NonNull;
 public interface RemoteGateway<T> {
 
     void getItemList(@NonNull RemoteGatewayCallback<T> callback);
-
 }

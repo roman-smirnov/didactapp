@@ -22,13 +22,17 @@ public interface ApiInterface {
     @POST("authentication/sign-up")
     Call<AuthenticationKey> register(@Body EncryptUser user);
 
+    @POST("authentication/sign-in")
+    Call<AuthenticationKey> login(@Body EncryptUser user);
 
     @GET("books/all/{key}")
     Call<List<Book>> getBookList(@Path("key") String key);
 
-    @GET("chapters.json")
-    Call<List<Chapter>> getChapterList();
+    @GET("chapters/books/{bookId}/{key}")
+    Call<List<Chapter>> getChapterList(@Path("key") String key, @Path("bookId") int bookId);
 
-    @GET("sections.json")
-    Call<List<Section>> getSectionList();
+    @GET("sections/chapters/{chapterId}/{key}")
+    Call<List<Section>> getSectionList(@Path("key") String key, @Path("chapterId") int chapterId);
+
+
 }

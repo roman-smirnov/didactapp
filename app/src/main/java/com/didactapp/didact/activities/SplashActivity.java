@@ -16,6 +16,7 @@ public class SplashActivity extends BaseActivity implements AuthenticationGatewa
 
     @Override
     public void onRemoteLoadRSuccess(AuthenticationKey item) {
+//        TODO keep the pub key in gateway
         Intent intent = new Intent(SplashActivity.this, RegisterActivity.class);
         intent.putExtra("PUBLIC_KEY", item.getKey());
         startActivity(intent);
@@ -29,6 +30,7 @@ public class SplashActivity extends BaseActivity implements AuthenticationGatewa
 
     @Override
     public void onRemoteLoadFailed() {
+//        TODO handle failed key fetch - sever error try later
         System.out.print("dd");
 
     }

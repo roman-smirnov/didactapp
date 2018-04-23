@@ -63,6 +63,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     public void onClick(View v) {
         if (v.getId() == R.id.activity_create_button) {
             User user = new User(emailText.getText().toString(), passwordText.getText().toString());
+            /* encrypt and send to server */
             String encrypt = new JWTEncrypt().encrypt(publicKey, user);
             registerRemoteGateway.getItem(this, new EncryptUser(encrypt, publicKey));
         }
