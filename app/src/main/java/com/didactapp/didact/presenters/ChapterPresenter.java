@@ -17,7 +17,7 @@ import static com.didactapp.didact.utils.Constants.NO_SUCH_BOOK;
 /**
  * class to handle books presentation logic
  */
-public final class ChapterPresenter implements ChapterContract.Presenter, RemoteGatewayCallback<Chapter>, LocalGatewayCallback<Chapter> {
+public final class ChapterPresenter implements ChapterContract.Presenter, RemoteGatewayCallback<List<Chapter>>, LocalGatewayCallback<Chapter> {
     private ChapterContract.View view = null;
     private ChapterRemoteGateway remoteGateway;
     private ChapterLocalGateway localGateway;
@@ -43,11 +43,6 @@ public final class ChapterPresenter implements ChapterContract.Presenter, Remote
         view = null;
     }
 
-//    @Override
-//    public void openChapterDetails(Chapter requestedChapter) {
-////        TODO: implement this
-////        view.showChapterDetailsUi();
-//    }
 
     @Override
     public void update() {
@@ -82,7 +77,7 @@ public final class ChapterPresenter implements ChapterContract.Presenter, Remote
         if (view == null) {
             return;
         }
-        remoteGateway.getFromRemote(this);
+        remoteGateway.getFromRemote(this, bookId);
     }
 
     @Override
@@ -164,6 +159,8 @@ public final class ChapterPresenter implements ChapterContract.Presenter, Remote
             hideAll();
             view.showNoContent();
             return;
+        } else {
+            this.bookId = bookId;
         }
         update();
     }

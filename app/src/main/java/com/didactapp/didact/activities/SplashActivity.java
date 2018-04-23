@@ -21,7 +21,7 @@ public class SplashActivity extends BaseActivity {
     @Override
     protected void onStart() {
         super.onStart();
-//        showNextActivityAfterDelay();
+        showNextActivityAfterDelay();
     }
 
     private void showNextActivityAfterDelay() {

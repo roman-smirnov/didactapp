@@ -18,11 +18,13 @@ import static com.didactapp.didact.utils.Constants.NO_SUCH_CHAPTER;
 /**
  * class to handle books presentation logic
  */
-public final class SectionPresenter extends ViewModel implements SectionContract.Presenter, RemoteGatewayCallback<Section>, LocalGatewayCallback<Section> {
+public final class SectionPresenter extends ViewModel implements SectionContract.Presenter, RemoteGatewayCallback<List<Section>>, LocalGatewayCallback<Section> {
     private SectionContract.View view = null;
     private SectionRemoteGateway remoteGateway;
     private SectionLocalGateway localGateway;
     private List<Section> sectionList = null;
+
+    private int chapterId = NO_SUCH_CHAPTER;
 
     public SectionPresenter(@NonNull SectionRemoteGateway remoteGateway, @NonNull SectionLocalGateway localGateway) {
         this.remoteGateway = remoteGateway;
@@ -159,13 +161,15 @@ public final class SectionPresenter extends ViewModel implements SectionContract
     }
 
     @Override
-    public void loadSections(int bookId) {
-        if (bookId == NO_SUCH_CHAPTER || view == null) {
+    public void loadSections(int chapterId) {
+        if (chapterId == NO_SUCH_CHAPTER || view == null) {
             hideAll();
             view.showNoContent();
             return;
+        } else {
+            this.chapterId = chapterId;
         }
-        //        TODO: impl actual get call with bookId
+        //        TODO: impl actual get call with chapterId
         update();
     }
 }

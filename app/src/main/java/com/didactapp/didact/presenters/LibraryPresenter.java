@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * class to handle books presentation logic
  */
-public final class LibraryPresenter extends ViewModel implements LibraryContract.Presenter, RemoteGatewayCallback<Book>, LocalGatewayCallback<Book> {
+public final class LibraryPresenter extends ViewModel implements LibraryContract.Presenter, RemoteGatewayCallback<List<Book>>, LocalGatewayCallback<Book> {
     private LibraryContract.View view = null;
     private BookRemoteGateway remoteGateway;
     private BookLocalGateway localGateway;
