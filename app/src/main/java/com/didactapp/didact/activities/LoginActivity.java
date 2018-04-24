@@ -63,6 +63,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             return;
         }
         if (v.getId() == R.id.login_button) {
+            LogUtils.d("login button pressed");
             User user = new User(email.getText().toString(), password.getText().toString());
             /* encrypt and send to server */
             String encrypt = new JWTEncrypt().encrypt(publicKey.getKey(), user);
@@ -82,6 +83,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             public void onRemoteLoadRSuccess(AuthenticationKey retrieved) {
 //                show success and show next activity
                 launchActivity(LoginActivity.this, LibraryActivity.class);
+                LogUtils.d("auth key succerss!");
                 finish();
             }
 

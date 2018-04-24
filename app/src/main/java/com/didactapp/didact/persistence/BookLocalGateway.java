@@ -45,7 +45,7 @@ public class BookLocalGateway implements LocalGateway<Book> {
             @Override
             public void run() {
                 appDatabase = Room.databaseBuilder(context.getApplicationContext(),
-                        AppDatabase.class, context.getString(R.string.database_name)).build();
+                        AppDatabase.class, context.getString(R.string.database_name)).fallbackToDestructiveMigration().build();
             }
         });
     }

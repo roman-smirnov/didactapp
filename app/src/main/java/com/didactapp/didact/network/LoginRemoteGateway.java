@@ -2,6 +2,7 @@ package com.didactapp.didact.network;
 
 import android.support.annotation.NonNull;
 
+import com.apkfuns.logutils.LogUtils;
 import com.didactapp.didact.entities.AuthenticationKey;
 import com.didactapp.didact.entities.EncryptUser;
 
@@ -43,11 +44,12 @@ public class LoginRemoteGateway extends BaseRemoteGateway<AuthenticationKey, Enc
     @Override
     public void onResponse(Call<AuthenticationKey> call, Response<AuthenticationKey> response) {
         super.onResponse(call, response);
+        LogUtils.d(response);
         if (callback != null &&
                 callback.get() != null
-                && response.isSuccessful()
                 && response.body() != null
                 && response.body().getKey() != null) {
+            LogUtils.d(authKey);
             authKey = response.body().getKey();
         }
     }
