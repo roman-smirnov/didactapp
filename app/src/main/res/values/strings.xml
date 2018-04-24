@@ -42,5 +42,6 @@
     <string name="library_title">Book Library</string>
     <string name="chapter_title">Chapters</string>
     <string name="section_title">Sections</string>
+    <string name="submit">submit</string>
 
 </resources>

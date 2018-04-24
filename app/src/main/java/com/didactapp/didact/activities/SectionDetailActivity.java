@@ -2,6 +2,8 @@ package com.didactapp.didact.activities;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -14,9 +16,9 @@ import com.didactapp.didact.utils.Constants;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
-import static com.didactapp.didact.utils.Constants.SECTION_ID_INTENT_KEY;
+import java.util.Random;
 
-public class SectionDetailActivity extends BaseActivity implements SectionDetailContract.View {
+public class SectionDetailActivity extends BaseActivity implements SectionDetailContract.View, View.OnClickListener {
 
     /* view refs */
     private TextView explanation;
@@ -27,8 +29,10 @@ public class SectionDetailActivity extends BaseActivity implements SectionDetail
     private RadioButton answer2;
     private RadioButton answer3;
     private RadioButton answer4;
+    private Button submit;
 
-
+    private int correctAnswerId;
+    private int currentAnswerId;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,13 +43,17 @@ public class SectionDetailActivity extends BaseActivity implements SectionDetail
         illustration = findViewById(R.id.section_detail_illustration);
         question = findViewById(R.id.section_detail_question);
         multChoice = findViewById(R.id.section_detail_multiple_choice);
+
         answer1 = findViewById(R.id.section_detail_answer1);
         answer2 = findViewById(R.id.section_detail_answer2);
         answer3 = findViewById(R.id.section_detail_answer3);
         answer4 = findViewById(R.id.section_detail_answer4);
+        submit = findViewById(R.id.question_button);
 
+        submit.setOnClickListener(this);
         /* getFromRemote section from intent */
-        String sectioJsonString = getIntent().getStringExtra(SECTION_ID_INTENT_KEY);
+        String sectioJsonString = getIntent().getStringExtra(Constants.SECTION_ID_INTENT_KEY);
+
         Section section = null;
         if (sectioJsonString != null) {
             Gson gson = new Gson();
@@ -75,15 +83,69 @@ public class SectionDetailActivity extends BaseActivity implements SectionDetail
                 && section.getWrongAnswer2() != null
                 && section.getWrongAnswer3() != null
                 && section.getCorrectAnswer() != null) {
-
+            setAnswersOrder(section);
             question.setText(section.getQuestion());
-            answer1.setText(section.getWrongAnswer1());
-            answer2.setText(section.getWrongAnswer2());
-            answer3.setText(section.getWrongAnswer3());
-            answer4.setText(section.getCorrectAnswer());
+
+        }
+        currentAnswerId = -1;
+        multChoice.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                currentAnswerId = checkedId;
+            }
+        });
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (currentAnswerId == correctAnswerId) {
+            System.out.print("good");
+        } else {
+            System.out.print("bad");
         }
     }
 
+    private void setAnswersOrder(Section section) {
+        Random rand = new Random();
+        int correctAnswer = rand.nextInt(3) + 1;
+        switch (correctAnswer) {
+            case 1: {
+                answer1.setText(section.getCorrectAnswer());
+                answer2.setText(section.getWrongAnswer2());
+                answer3.setText(section.getWrongAnswer3());
+                answer4.setText(section.getWrongAnswer1());
+                correctAnswerId = R.id.section_detail_answer1;
+                break;
+            }
+            case 2: {
+                answer1.setText(section.getWrongAnswer1());
+                answer2.setText(section.getCorrectAnswer());
+                answer3.setText(section.getWrongAnswer3());
+                answer4.setText(section.getWrongAnswer2());
+                correctAnswerId = R.id.section_detail_answer2;
+
+                break;
+            }
+            case 3: {
+                answer1.setText(section.getWrongAnswer1());
+                answer2.setText(section.getWrongAnswer2());
+                answer3.setText(section.getCorrectAnswer());
+                answer4.setText(section.getWrongAnswer3());
+                correctAnswerId = R.id.section_detail_answer3;
+
+                break;
+            }
+            case 4: {
+                answer1.setText(section.getWrongAnswer1());
+                answer2.setText(section.getWrongAnswer2());
+                answer3.setText(section.getWrongAnswer3());
+                answer4.setText(section.getCorrectAnswer());
+                correctAnswerId = R.id.section_detail_answer4;
+                break;
+            }
+        }
+
+    }
     @Override
     public void showExplanation(String explanation) {
 
