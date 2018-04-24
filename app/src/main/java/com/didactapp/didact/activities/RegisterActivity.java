@@ -5,8 +5,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.apkfuns.logutils.LogUtils;
 import com.didactapp.didact.R;
 import com.didactapp.didact.entities.AuthenticationKey;
+import com.didactapp.didact.entities.EncryptUser;
 import com.didactapp.didact.entities.PublicKey;
 import com.didactapp.didact.entities.User;
 import com.didactapp.didact.network.PublicKeyRemoteGateway;
@@ -33,29 +35,9 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         registerButton = findViewById(R.id.activity_create_button);
         registerButton.setOnClickListener(this);
 
-//        publicKeyRemoteGateway
-//        registerRemoteGateway = RegisterRemoteGateway.getInstance();
-//        registerRemoteGateway.getFromRemote();
+        publicKeyRemoteGateway = PublicKeyRemoteGateway.getInstance();
+        publicKeyRemoteGateway.getFromRemote(getPublicKeyGatewayCallback());
     }
-
-
-//    @Override
-//    public void onRemoteLoadRSuccess(AuthenticationKey item) {
-//        System.out.print(item.getKey());
-//        Constants.AUTHENTICATION_KEY = item.getKey();
-//        launchActivity(RegisterActivity.this, LibraryActivity.class);
-//
-//    }
-
-//    @Override
-//    public void onRemoteDataNotAvailable() {
-//
-//    }
-//
-//    @Override
-//    public void onRemoteLoadFailed() {
-//        LogUtils.d("onRemoteLoadFailed");
-//    }
 
     @Override
     protected void onStart() {
@@ -71,10 +53,9 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
             User user = new User(emailText.getText().toString(), passwordText.getText().toString());
             /* encrypt and send to server */
             String encrypt = new JWTEncrypt().encrypt(publicKey.getKey(), user);
-//            registerRemoteGateway.getFromRemote(this, new EncryptUser(encrypt, publicKey.getKey()));
+            registerRemoteGateway = RegisterRemoteGateway.getInstance();
+            registerRemoteGateway.getFromRemote(getAuthenticationGatewayCallback(), new EncryptUser(encrypt, publicKey.getKey()));
         }
-//        int a = v.getId();
-//        System.out.print(a
     }
 
     public RemoteGatewayCallback<AuthenticationKey> getAuthenticationGatewayCallback() {
@@ -83,6 +64,11 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
             @Override
             public void onRemoteLoadRSuccess(AuthenticationKey retrieved) {
 //                show success and show next activity
+                launchActivity(RegisterActivity.this, LibraryActivity.class);
+                finish();
+
+
+
             }
 
             @Override
@@ -101,7 +87,8 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         return new RemoteGatewayCallback<PublicKey>() {
             @Override
             public void onRemoteLoadRSuccess(PublicKey retrieved) {
-
+                publicKey = retrieved;
+                LogUtils.d("public key success!");
             }
 
             @Override

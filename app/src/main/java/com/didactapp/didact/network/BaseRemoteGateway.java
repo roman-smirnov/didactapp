@@ -15,7 +15,7 @@ public abstract class BaseRemoteGateway<T, P> implements RemoteGateway<T, P>, Ca
 
     @Override
     public void onResponse(Call<T> call, Response<T> response) {
-        if (callback != null && callback.get() != null) {
+        if (callback != null && response != null && response.body() != null) {
             /* response.isSuccessful() is true if the response code is 2xx */
             if (response.isSuccessful()) {
                 T retrieved = response.body();

@@ -5,13 +5,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.apkfuns.logutils.LogUtils;
 import com.didactapp.didact.R;
 import com.didactapp.didact.entities.AuthenticationKey;
 import com.didactapp.didact.entities.EncryptUser;
 import com.didactapp.didact.entities.PublicKey;
 import com.didactapp.didact.entities.User;
+import com.didactapp.didact.network.LoginRemoteGateway;
 import com.didactapp.didact.network.PublicKeyRemoteGateway;
-import com.didactapp.didact.network.RegisterRemoteGateway;
 import com.didactapp.didact.network.RemoteGatewayCallback;
 import com.didactapp.didact.userEncrypt.JWTEncrypt;
 
@@ -25,7 +26,13 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     private Button loginButton;
     private Button registerButton;
 
-    private com.didactapp.didact.entities.PublicKey publicKey = null;
+    private PublicKey publicKey = null;
+
+
+    /* these are here to prevent GC from disposing of the anonymous refs*/
+    private RemoteGatewayCallback<PublicKey> publicKeyCallback = null;
+    private RemoteGatewayCallback<AuthenticationKey> authKeyCallback = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,46 +44,33 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         password = findViewById(R.id.login_password_field);
         loginButton = findViewById(R.id.login_button);
         registerButton = findViewById(R.id.register_button);
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                launchActivity(LoginActivity.this, LibraryActivity.class);
-                finish();
-            }
-        });
 
-        registerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                launchActivity(LoginActivity.this, RegisterActivity.class);
-            }
-        });
+        registerButton.setOnClickListener(this);
+        loginButton.setOnClickListener(this);
 
-        PublicKeyRemoteGateway publicKeyRemoteGateway = PublicKeyRemoteGateway.getInstance();
-        publicKeyRemoteGateway.getFromRemote(getPublicKeyGatewayCallback(), "");
+        /* create network callbacks - do it this way because java generic type erasure */
+        publicKeyCallback = getPublicKeyGatewayCallback();
+        authKeyCallback = getAuthenticationGatewayCallback();
+
+        PublicKeyRemoteGateway.getInstance().getFromRemote(publicKeyCallback);
     }
 
 //    TODO implement login call (just like register but dif err)
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-
-    }
 
     @Override
     public void onClick(View v) {
         if (publicKey == null || publicKey.getKey() == null) {
             return;
         }
-
-        if (v.getId() == R.id.activity_create_button) {
+        if (v.getId() == R.id.login_button) {
             User user = new User(email.getText().toString(), password.getText().toString());
             /* encrypt and send to server */
             String encrypt = new JWTEncrypt().encrypt(publicKey.getKey(), user);
-            RegisterRemoteGateway registerRemoteGateway = RegisterRemoteGateway.getInstance();
-            registerRemoteGateway.getFromRemote(getAuthenticationGatewayCallback(), new EncryptUser(encrypt, publicKey.getKey()));
+            LoginRemoteGateway
+                    .getInstance()
+                    .getFromRemote(authKeyCallback, new EncryptUser(encrypt, publicKey.getKey()));
+        } else if (v.getId() == R.id.register_button) {
+            launchActivity(LoginActivity.this, RegisterActivity.class);
         }
     }
 
@@ -87,6 +81,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             @Override
             public void onRemoteLoadRSuccess(AuthenticationKey retrieved) {
 //                show success and show next activity
+                launchActivity(LoginActivity.this, LibraryActivity.class);
+                finish();
             }
 
             @Override
@@ -105,17 +101,19 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         return new RemoteGatewayCallback<PublicKey>() {
             @Override
             public void onRemoteLoadRSuccess(PublicKey retrieved) {
-
+                publicKey = retrieved;
+                LogUtils.d("public key success!");
             }
 
             @Override
             public void onRemoteDataNotAvailable() {
+                LogUtils.d("no data");
 
             }
 
             @Override
             public void onRemoteLoadFailed() {
-
+                LogUtils.d("failed ");
             }
         };
     }

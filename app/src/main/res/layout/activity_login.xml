@@ -42,12 +42,13 @@
             android:layout_marginTop="@dimen/vertical_margin"
             app:passwordToggleEnabled="true">
 
-            <EditText
+            <android.support.v7.widget.AppCompatEditText
+
                 android:id="@+id/login_email_field"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/colorPrimary"
-                android:hint="@string/password_hint"
+                android:hint="@string/new_email_hint"
                 android:inputType="textEmailAddress"
                 android:maxLines="1" />
 
@@ -62,7 +63,7 @@
             android:layout_marginTop="@dimen/vertical_margin"
             app:passwordToggleEnabled="true">
 
-            <EditText
+            <android.support.v7.widget.AppCompatEditText
                 android:id="@+id/login_password_field"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
