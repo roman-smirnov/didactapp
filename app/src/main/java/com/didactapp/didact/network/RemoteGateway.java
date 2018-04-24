@@ -3,9 +3,8 @@ package com.didactapp.didact.network;
 import android.support.annotation.NonNull;
 
 /**
- * Created by roman on 11/03/2018.
- */
-
+ * network api gateway interface generic definition
+ **/
 public interface RemoteGateway<T, P> {
 
     void getFromRemote(@NonNull RemoteGatewayCallback<T> callback, @NonNull P... reqParams);

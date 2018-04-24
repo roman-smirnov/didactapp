@@ -12,8 +12,14 @@ import static com.didactapp.didact.utils.Constants.BASE_API_URL;
  */
 public class ApiClient {
 
+    /* retrofit networking library */
     private static Retrofit retrofit = null;
 
+    /**
+     * init the networking client
+     *
+     * @return
+     */
     public static Retrofit getClient() {
         if (retrofit == null) {
 
@@ -23,6 +29,7 @@ public class ApiClient {
             /* instantiate retrofit networking library */
             retrofit = new Retrofit.Builder()
                     .baseUrl(BASE_API_URL)
+                    /* converter used to convert json string to model objects */
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
         }

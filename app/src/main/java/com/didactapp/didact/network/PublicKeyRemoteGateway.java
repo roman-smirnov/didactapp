@@ -9,9 +9,8 @@ import java.lang.ref.WeakReference;
 import retrofit2.Call;
 
 /**
- * Created by roman on 12/03/2018.
+ * an interface that should be implemented by clients that ask for Data from server
  */
-
 public class PublicKeyRemoteGateway extends BaseRemoteGateway<PublicKey, String> {
 
     private static PublicKeyRemoteGateway INSTANCE = null;

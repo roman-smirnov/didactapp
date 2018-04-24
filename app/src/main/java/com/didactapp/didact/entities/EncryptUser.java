@@ -1,5 +1,8 @@
 package com.didactapp.didact.entities;
 
+/**
+ * entity model
+ */
 public class EncryptUser {
     private String userKey;
     private String key;

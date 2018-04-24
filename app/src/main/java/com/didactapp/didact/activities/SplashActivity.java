@@ -5,8 +5,12 @@ import android.os.Handler;
 
 import com.didactapp.didact.R;
 
+/**
+ * This activity displays a brief loading animation at app launch
+ */
 public class SplashActivity extends BaseActivity {
 
+    /* for how long to show the loading animation */
     private static final int SPLASH_DELAY_MILLIS = 1000;
 
     @Override
@@ -21,7 +25,11 @@ public class SplashActivity extends BaseActivity {
         showNextActivityAfterDelay();
     }
 
+    /**
+     * wait some time and then launch the login activity
+     */
     private void showNextActivityAfterDelay() {
+        /* will wake up and call run method after pre-set time */
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

@@ -26,12 +26,16 @@ import static com.didactapp.didact.utils.Constants.BOOK_ID_INTENT_KEY;
 import static com.didactapp.didact.utils.Constants.CHAPTER_ID_INTENT_KEY;
 import static com.didactapp.didact.utils.Constants.NO_SUCH_BOOK;
 
+
+/**
+ * This activity is a UI controller for displaying a list of chapters and managing their state
+ */
 public class ChapterActivity extends BaseActivity implements ChapterContract.View, SwipeRefreshLayout.OnRefreshListener, View.OnClickListener {
 
+    /* number of columns in the ui grid. 1 means it's a list. */
     private static final int NUM_OF_COLUMNS = 1;
 
-
-
+    /* view refs */
     private RecyclerView recycler;
     private TextView noContentView;
     private Snackbar noNetworkSnackbar;
@@ -69,9 +73,13 @@ public class ChapterActivity extends BaseActivity implements ChapterContract.Vie
             presenter = new ChapterPresenter(ChapterRemoteGateway.getInstance(), ChapterLocalGateway.getInstance(this));
         }
 
+        /* set the presenter view callback */
         presenter.takeView(this);
 
+        /* retrieve the bookid for which to show the chapters */
         int bookId = getIntent().getIntExtra(BOOK_ID_INTENT_KEY, NO_SUCH_BOOK);
+
+        /* call the presenter to handle chapter list display logic */
         presenter.loadChapters(bookId);
     }
 
@@ -82,8 +90,10 @@ public class ChapterActivity extends BaseActivity implements ChapterContract.Vie
         return presenter;
     }
 
+
     @Override
     public void showChapters(List<Chapter> chapterList) {
+        /* swap the list old data with the new data */
         RecyclerViewChapterAdapter recyclerViewAdapter = new RecyclerViewChapterAdapter(this, chapterList, this);
         recycler.swapAdapter(recyclerViewAdapter, false);
         recycler.setVisibility(VISIBLE);
@@ -96,11 +106,10 @@ public class ChapterActivity extends BaseActivity implements ChapterContract.Vie
 
     @Override
     public void showChapterContent(int chapterId) {
+        /* launch the section list activity */
         launchActivity(this, SectionActivity.class);
 
     }
-
-
 
     @Override
     public void showSpinner() {
@@ -168,11 +177,13 @@ public class ChapterActivity extends BaseActivity implements ChapterContract.Vie
 
     @Override
     public void onRefresh() {
+        /* user swiped down to refresh the list */
         presenter.update();
     }
 
     @Override
     public void onClick(View v) {
+        /* user clicked on a chapter in the list - start and pass the chapterid to section activity */
         int pos = recycler.getChildAdapterPosition(v);
         int chapterId = ((RecyclerViewChapterAdapter) recycler.getAdapter()).getChapterId(pos);
         launchActivity(this, SectionActivity.class, CHAPTER_ID_INTENT_KEY, chapterId);

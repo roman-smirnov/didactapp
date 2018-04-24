@@ -28,10 +28,16 @@ import static com.didactapp.didact.utils.Constants.CHAPTER_ID_INTENT_KEY;
 import static com.didactapp.didact.utils.Constants.NO_SUCH_CHAPTER;
 import static com.didactapp.didact.utils.Constants.SECTION_ID_INTENT_KEY;
 
+
+/**
+ * this activity is for displaying a list of sections belonging to a chapter
+ **/
 public class SectionActivity extends BaseActivity implements SectionContract.View, SwipeRefreshLayout.OnRefreshListener, View.OnClickListener {
 
+    /* num of grid columns - 1 column means it's a list  */
     private static final int NUM_OF_COLUMNS = 1;
 
+    /* view refs */
     private RecyclerView recyclerView;
     private TextView noContentView;
     private Snackbar noNetworkSnackbar;
@@ -68,10 +74,14 @@ public class SectionActivity extends BaseActivity implements SectionContract.Vie
             presenter = new SectionPresenter(SectionRemoteGateway.getInstance(), SectionLocalGateway.getInstance(this));
         }
 
+        /* set the presenter view callback */
         presenter.takeView(this);
 
+        /* retrieve selected chapter passed from chapters activity */
         int chapterId = getIntent().getIntExtra(CHAPTER_ID_INTENT_KEY, NO_SUCH_CHAPTER);
         LogUtils.d(chapterId);
+
+        /* request presenter to load sections belonging to chapter with given id */
         presenter.loadSections(chapterId);
     }
 
@@ -83,6 +93,7 @@ public class SectionActivity extends BaseActivity implements SectionContract.Vie
 
     @Override
     public void showSections(List<Section> sectionList) {
+        /* swap the list old data with the new data */
         RecyclerViewSectionAdapter recyclerViewAdapter = new RecyclerViewSectionAdapter(this, sectionList, this);
         recyclerView.swapAdapter(recyclerViewAdapter, false);
         recyclerView.setVisibility(VISIBLE);
@@ -170,6 +181,8 @@ public class SectionActivity extends BaseActivity implements SectionContract.Vie
 
     @Override
     public void onClick(View v) {
+        /* user clicked on a section in the list - encode the object into a json string and pass
+         * to section detail activity  */
         int pos = recyclerView.getChildAdapterPosition(v);
         Section selectedSection = ((RecyclerViewSectionAdapter) recyclerView.getAdapter()).getSection(pos);
         Gson gson = new Gson();

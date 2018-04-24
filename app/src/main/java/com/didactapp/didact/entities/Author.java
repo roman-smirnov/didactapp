@@ -5,6 +5,9 @@ import android.arch.persistence.room.Entity;
 import com.didactapp.didact.models.AuthorModel;
 
 
+/**
+ * entity model
+ */
 @Entity(primaryKeys = {"authorId"})
 public final class Author extends AuthorModel {
 

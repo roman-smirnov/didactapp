@@ -16,16 +16,25 @@ import com.didactapp.didact.network.PublicKeyRemoteGateway;
 import com.didactapp.didact.network.RemoteGatewayCallback;
 import com.didactapp.didact.userEncrypt.JWTEncrypt;
 
-
+/**
+ * This activity allows user to log in to the app. It also handles encryption, authentication, etc
+ */
 public class LoginActivity extends BaseActivity implements View.OnClickListener {
 
+    /* TODO:
+     *  1. move logic to presenter
+     *  2. save presenter and state on config change
+     *  3. implement user feedback on
+     */
 
-    // UI references.
+    /* view refs */
     private EditText email;
     private EditText password;
     private Button loginButton;
     private Button registerButton;
 
+    /* the public key with which to encrypt communication (e.g user details) - received from server
+     * on each new session */
     private PublicKey publicKey = null;
 
 
@@ -39,12 +48,13 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        // get the views
+        /* get the views */
         email = findViewById(R.id.login_email_field);
         password = findViewById(R.id.login_password_field);
         loginButton = findViewById(R.id.login_button);
         registerButton = findViewById(R.id.register_button);
 
+        /* set click listeners */
         registerButton.setOnClickListener(this);
         loginButton.setOnClickListener(this);
 
@@ -52,16 +62,18 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         publicKeyCallback = getPublicKeyGatewayCallback();
         authKeyCallback = getAuthenticationGatewayCallback();
 
+        /* request a public key from server */
         PublicKeyRemoteGateway.getInstance().getFromRemote(publicKeyCallback);
     }
 
-//    TODO implement login call (just like register but dif err)
 
     @Override
     public void onClick(View v) {
+        /* if there's no public key, there can't be no login */
         if (publicKey == null || publicKey.getKey() == null) {
             return;
         }
+        /* login button logic */
         if (v.getId() == R.id.login_button) {
             LogUtils.d("login button pressed");
             User user = new User(email.getText().toString(), password.getText().toString());
@@ -70,12 +82,18 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             LoginRemoteGateway
                     .getInstance()
                     .getFromRemote(authKeyCallback, new EncryptUser(encrypt, publicKey.getKey()));
+            /* register button pressed - show register activity */
         } else if (v.getId() == R.id.register_button) {
             launchActivity(LoginActivity.this, RegisterActivity.class);
         }
     }
 
-
+    /**
+     * create an anonymous inner gateway object - we do it this way because Java generics are
+     * typed erase so both Authentication and Publickey gateways are compiled so as they have no dif
+     *
+     * @return
+     */
     public RemoteGatewayCallback<AuthenticationKey> getAuthenticationGatewayCallback() {
         return new RemoteGatewayCallback<AuthenticationKey>() {
 
@@ -99,6 +117,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         };
     }
 
+    /**
+     * create an anonymous inner gateway object - we do it this way because Java generics are
+     * typed erase so both Authentication and Publickey gateways are compiled so as they have no dif
+     * @return
+     */
     public RemoteGatewayCallback<PublicKey> getPublicKeyGatewayCallback() {
         return new RemoteGatewayCallback<PublicKey>() {
             @Override

@@ -7,9 +7,10 @@ import android.widget.TextView;
 
 import com.didactapp.didact.R;
 
-
-class
-RecyclerViewChapterHolder extends RecyclerView.ViewHolder {
+/**
+ * class to hold a list item within a recycler list view
+ **/
+class RecyclerViewChapterHolder extends RecyclerView.ViewHolder {
 
     ImageView image;
     TextView name;

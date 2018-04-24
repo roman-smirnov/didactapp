@@ -1,6 +1,11 @@
 package com.didactapp.didact.contracts;
 
 
+/**
+ * base presenter interface - template for implementing presentation and business logic handlers
+ *
+ * @param <T>
+ */
 public interface BasePresenter<T> {
 
     /**
@@ -13,10 +18,19 @@ public interface BasePresenter<T> {
      */
     void dropView();
 
+    /**
+     *  handle no network connection
+     */
     void networkDisconnected();
 
+    /**
+     *  called when network is connected
+     */
     void networkConnected();
 
+    /**
+     *  view update requested
+     */
     void update();
 
 }

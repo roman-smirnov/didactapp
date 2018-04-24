@@ -10,9 +10,8 @@ import java.util.List;
 import retrofit2.Call;
 
 /**
- * Created by roman on 12/03/2018.
+ * an interface that should be implemented by clients that ask for Data from server
  */
-
 public class BookRemoteGateway extends BaseRemoteGateway<List<Book>, String> {
 
     private static BookRemoteGateway INSTANCE = null;

@@ -7,7 +7,9 @@ import android.widget.TextView;
 import com.airbnb.lottie.LottieAnimationView;
 import com.didactapp.didact.R;
 
-
+/**
+ * class to hold a list item within a recycler list view
+ **/
 class RecyclerViewSectionHolder extends RecyclerView.ViewHolder {
 
     LottieAnimationView state;

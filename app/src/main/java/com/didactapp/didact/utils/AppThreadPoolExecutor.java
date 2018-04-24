@@ -7,6 +7,9 @@ import android.support.annotation.NonNull;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
+/**
+ * thread pool executor implementation and threading management
+ **/
 public class AppThreadPoolExecutor {
 
     private static final int THREAD_COUNT = 3;

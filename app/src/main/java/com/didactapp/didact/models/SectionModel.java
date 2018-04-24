@@ -1,5 +1,8 @@
 package com.didactapp.didact.models;
 
+/**
+ * domain model
+ */
 public abstract class SectionModel {
 
     protected final int sectionId;

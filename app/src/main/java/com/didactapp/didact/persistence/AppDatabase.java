@@ -9,9 +9,8 @@ import com.didactapp.didact.entities.Section;
 
 
 /**
- * Created by roman on 06/03/2018.
+ * database ORM declaration class - define tables here
  */
-
 @Database(entities = {Book.class, Chapter.class, Section.class}, version = 3)
 public abstract class AppDatabase extends RoomDatabase {
 

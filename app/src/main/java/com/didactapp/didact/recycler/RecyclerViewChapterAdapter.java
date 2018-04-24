@@ -14,7 +14,9 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-
+/**
+ * class to show a list - it recycles the view holders
+ **/
 public class RecyclerViewChapterAdapter extends RecyclerView.Adapter<RecyclerViewChapterHolder> {
     private List<Chapter> chapterList;
     private Context context;

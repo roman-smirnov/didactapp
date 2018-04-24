@@ -5,9 +5,8 @@ import android.support.annotation.NonNull;
 import java.util.List;
 
 /**
- * Created by roman on 11/03/2018.
- */
-
+ * an interface that should be implemented by clients that ask for Data from disk
+ **/
 public interface LocalGateway<T> {
 
     void getItemList(@NonNull LocalGatewayCallback<T> callback);

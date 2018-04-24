@@ -5,9 +5,10 @@ import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.PrimaryKey;
 
 /**
- * Created by roman on 11/03/2018.
+ *
+ * entity model
+ *
  */
-
 @Entity(foreignKeys = {
         @ForeignKey(entity = Book.class,
                 parentColumns = "bookId",

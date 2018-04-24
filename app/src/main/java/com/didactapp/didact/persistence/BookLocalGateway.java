@@ -13,9 +13,8 @@ import java.lang.ref.WeakReference;
 import java.util.List;
 
 /**
- * Created by roman on 12/03/2018.
- */
-
+ * an interface that should be implemented by clients that ask for Data from disk
+ **/
 public class BookLocalGateway implements LocalGateway<Book> {
 
     private static BookLocalGateway INSTANCE = null;

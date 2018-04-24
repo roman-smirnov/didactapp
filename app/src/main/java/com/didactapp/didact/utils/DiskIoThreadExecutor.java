@@ -5,6 +5,10 @@ import android.support.annotation.NonNull;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
+
+/**
+ * database (disk) thread handler (used by app threadpool executor )
+ **/
 public class DiskIoThreadExecutor implements Executor {
 
     private final Executor mDiskIO;

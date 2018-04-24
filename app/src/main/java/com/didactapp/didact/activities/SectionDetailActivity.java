@@ -2,11 +2,13 @@ package com.didactapp.didact.activities;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.didactapp.didact.R;
@@ -18,6 +20,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.Random;
 
+
+/* this activity displays the contents of a single section */
 public class SectionDetailActivity extends BaseActivity implements SectionDetailContract.View, View.OnClickListener {
 
     /* view refs */
@@ -30,9 +34,12 @@ public class SectionDetailActivity extends BaseActivity implements SectionDetail
     private RadioButton answer3;
     private RadioButton answer4;
     private Button submit;
+    private ScrollView scrollView;
 
+    /* used for multiple choice question */
     private int correctAnswerId;
     private int currentAnswerId;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +50,7 @@ public class SectionDetailActivity extends BaseActivity implements SectionDetail
         illustration = findViewById(R.id.section_detail_illustration);
         question = findViewById(R.id.section_detail_question);
         multChoice = findViewById(R.id.section_detail_multiple_choice);
+        scrollView = findViewById(R.id.section_detail_scrollview);
 
         answer1 = findViewById(R.id.section_detail_answer1);
         answer2 = findViewById(R.id.section_detail_answer2);
@@ -50,34 +58,36 @@ public class SectionDetailActivity extends BaseActivity implements SectionDetail
         answer4 = findViewById(R.id.section_detail_answer4);
         submit = findViewById(R.id.question_button);
 
+        /* set listeners */
         submit.setOnClickListener(this);
-        /* getFromRemote section from intent */
-        String sectioJsonString = getIntent().getStringExtra(Constants.SECTION_ID_INTENT_KEY);
 
+        /* retrieve section from intent */
+        String sectioJsonString = getIntent().getStringExtra(Constants.SECTION_ID_INTENT_KEY);
         Section section = null;
         if (sectioJsonString != null) {
             Gson gson = new Gson();
             section = gson.fromJson(sectioJsonString, Section.class);
         } else {
-//            TODO: handle this case
+//            TODO: handle this
         }
 
         if (section == null) {
             return;
         }
 
+        /* set explanation text */
         if (section.getExplanation() != null) {
             this.explanation.setText(section.getExplanation());
         }
 
-//        illustration.setImageDrawable(getDrawable(R.drawable.ic_book_logo));
-
+        /* set the image */
         Picasso.with(this)
                 .load(Constants.BASE_URL + section.getImageUrl())
                 .placeholder(R.drawable.ic_book) // show this image if not loaded yet
                 .error(R.drawable.ic_book)      // show this if error or image not exist
                 .into(illustration);
 
+        /* set question text */
         if (section.getQuestion() != null
                 && section.getWrongAnswer1() != null
                 && section.getWrongAnswer2() != null
@@ -85,9 +95,12 @@ public class SectionDetailActivity extends BaseActivity implements SectionDetail
                 && section.getCorrectAnswer() != null) {
             setAnswersOrder(section);
             question.setText(section.getQuestion());
-
         }
+
+        /* initial answer state */
         currentAnswerId = -1;
+
+        /* set radiogroup click listener */
         multChoice.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -96,15 +109,26 @@ public class SectionDetailActivity extends BaseActivity implements SectionDetail
         });
     }
 
+    /**
+     * submit button clicked
+     *
+     * @param v
+     */
     @Override
     public void onClick(View v) {
+        /* show correct and bad answers */
         if (currentAnswerId == correctAnswerId) {
             System.out.print("good");
+            Snackbar.make(scrollView, R.string.section_detail_wrong_answer, Snackbar.LENGTH_SHORT).show();
+
         } else {
             System.out.print("bad");
+            Snackbar.make(scrollView, R.string.section_detail_correct_answer, Snackbar.LENGTH_SHORT).show();
+
         }
     }
 
+    /* multiple choice question logic */
     private void setAnswersOrder(Section section) {
         Random rand = new Random();
         int correctAnswer = rand.nextInt(3) + 1;
@@ -146,6 +170,7 @@ public class SectionDetailActivity extends BaseActivity implements SectionDetail
         }
 
     }
+
     @Override
     public void showExplanation(String explanation) {
 

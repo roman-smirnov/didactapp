@@ -1,4 +1,5 @@
-//package com.didactapp.didact.presenters;
+package com.didactapp.didact.presenters;
+// TODO: impl this
 //
 //import android.arch.lifecycle.ViewModel;
 //import android.support.annotation.NonNull;

@@ -8,6 +8,9 @@ import android.widget.TextView;
 import com.didactapp.didact.R;
 
 
+/**
+ * class to hold a list item within a recycler list view
+ **/
 class RecyclerViewBookHolder extends RecyclerView.ViewHolder {
 
     ImageView image;

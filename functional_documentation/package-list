@@ -1,0 +1,11 @@
+com.didactapp.didact
+com.didactapp.didact.activities
+com.didactapp.didact.contracts
+com.didactapp.didact.entities
+com.didactapp.didact.models
+com.didactapp.didact.network
+com.didactapp.didact.persistence
+com.didactapp.didact.presenters
+com.didactapp.didact.recycler
+com.didactapp.didact.userEncrypt
+com.didactapp.didact.utils

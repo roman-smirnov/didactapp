@@ -1,5 +1,8 @@
 package com.didactapp.didact.models;
 
+/**
+ * domain model
+ */
 public abstract class UserModel {
 
     protected final String email;

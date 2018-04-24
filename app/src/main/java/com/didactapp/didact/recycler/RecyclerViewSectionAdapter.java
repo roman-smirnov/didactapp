@@ -12,7 +12,9 @@ import com.didactapp.didact.entities.Section;
 
 import java.util.List;
 
-
+/**
+ * class to show a list - it recycles the view holders
+ **/
 public class RecyclerViewSectionAdapter extends RecyclerView.Adapter<RecyclerViewSectionHolder> {
     private List<Section> sectionList;
     private Context context;

@@ -43,5 +43,7 @@
     <string name="chapter_title">Chapters</string>
     <string name="section_title">Sections</string>
     <string name="submit">submit</string>
+    <string name="section_detail_wrong_answer">Wrong answer</string>
+    <string name="section_detail_correct_answer">Correct!</string>
 
 </resources>

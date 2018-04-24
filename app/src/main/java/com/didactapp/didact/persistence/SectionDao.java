@@ -11,9 +11,8 @@ import java.util.List;
 
 
 /**
- * Created by roman on 06/03/2018.
+ * data access object
  */
-
 @Dao
 public interface SectionDao {
     @Query("SELECT * FROM Section")

@@ -4,7 +4,9 @@ import com.didactapp.didact.entities.Chapter;
 
 import java.util.List;
 
-
+/**
+ * chapter view/presenter contract
+ */
 public interface ChapterContract {
 
     interface View extends BaseView<Presenter> {

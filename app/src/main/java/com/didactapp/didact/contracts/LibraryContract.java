@@ -5,6 +5,9 @@ import com.didactapp.didact.entities.Book;
 import java.util.List;
 
 
+/**
+ * view/presenter contract
+ */
 public interface LibraryContract {
 
     interface View extends BaseView<Presenter> {
@@ -14,7 +17,6 @@ public interface LibraryContract {
         void hideBooks();
 
         void showBookDetailsUi(String bookId);
-
 
 
     }

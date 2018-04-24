@@ -12,14 +12,14 @@ import retrofit2.Call;
 import retrofit2.Response;
 
 /**
- * Created by roman on 12/03/2018.
+ * an interface that should be implemented by clients that ask for Data from server
  */
-
 public class LoginRemoteGateway extends BaseRemoteGateway<AuthenticationKey, EncryptUser> {
     private static LoginRemoteGateway INSTANCE = null;
 
     private LoginRemoteGateway() {
     }
+
 
     public static LoginRemoteGateway getInstance() {
         if (INSTANCE == null) {

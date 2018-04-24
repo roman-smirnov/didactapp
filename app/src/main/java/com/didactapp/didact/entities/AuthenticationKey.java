@@ -1,5 +1,9 @@
 package com.didactapp.didact.entities;
 
+
+/**
+ * auth key container
+ */
 public final class AuthenticationKey {
     private String key;
 

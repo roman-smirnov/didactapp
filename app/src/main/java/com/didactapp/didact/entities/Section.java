@@ -7,7 +7,9 @@ import com.didactapp.didact.models.SectionModel;
 
 import static android.arch.persistence.room.ForeignKey.CASCADE;
 
-
+/**
+ * entity model
+ */
 @Entity(primaryKeys = {"sectionId"},
         foreignKeys = @ForeignKey(entity = Chapter.class,
                 parentColumns = "chapterId",

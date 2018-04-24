@@ -16,6 +16,9 @@ import java.security.interfaces.RSAPublicKey;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.X509EncodedKeySpec;
 
+/**
+ * class to encrypt user details for server/client communication - uses RSA
+ **/
 public class JWTEncrypt {
     public String encrypt(String publicKeyStr, User user) {
         try {

@@ -1,6 +1,9 @@
 package com.didactapp.didact.models;
 
 
+/**
+ * domain model
+ */
 public abstract class BookModel {
 
     protected final int bookId;

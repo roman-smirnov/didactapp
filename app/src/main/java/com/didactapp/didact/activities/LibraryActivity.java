@@ -24,18 +24,21 @@ import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import static com.didactapp.didact.utils.Constants.BOOK_ID_INTENT_KEY;
 
+/**
+ * this activity is a view controller for displaying a grid of available books
+ */
 public class LibraryActivity extends BaseActivity implements LibraryContract.View, SwipeRefreshLayout.OnRefreshListener, View.OnClickListener {
 
+    /*  num of columns the book grid is composed of */
     private static final int NUM_OF_COLUMNS = 2;
 
+    /* view refs */
     private RecyclerView recyclerView;
     private TextView noContentView;
     private Snackbar noNetworkSnackbar;
     private Snackbar loadErrorSnackbar;
     private LibraryContract.Presenter presenter;
     private SwipeRefreshLayout swipeRefreshLayout;
-
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -60,12 +63,13 @@ public class LibraryActivity extends BaseActivity implements LibraryContract.Vie
         recyclerView.addItemDecoration(new DividerItemDecoration(this, RecyclerView.VERTICAL));
         recyclerView.addItemDecoration(new DividerItemDecoration(this, RecyclerView.HORIZONTAL));
 
-        /* getFromRemote or create presenter */
+        /* retrieve  or create presenter */
         presenter = (LibraryContract.Presenter) getLastCustomNonConfigurationInstance();
         if (presenter == null) {
             presenter = new LibraryPresenter(BookRemoteGateway.getInstance(), BookLocalGateway.getInstance(this));
         }
 
+        /* set the presenter view callback */
         presenter.takeView(this);
     }
 
@@ -78,6 +82,7 @@ public class LibraryActivity extends BaseActivity implements LibraryContract.Vie
 
     @Override
     public void showBooks(List<Book> bookList) {
+        /* swap the list old data with the new data */
         RecyclerViewBookAdapter recyclerViewAdapter = new RecyclerViewBookAdapter(this, bookList, this);
         recyclerView.swapAdapter(recyclerViewAdapter, false);
         recyclerView.setVisibility(VISIBLE);
@@ -165,6 +170,7 @@ public class LibraryActivity extends BaseActivity implements LibraryContract.Vie
 
     @Override
     public void onClick(View v) {
+        /* launch the chapter list activity. also pass the selected book id to it */
         int pos = recyclerView.getChildAdapterPosition(v);
         int bookId = ((RecyclerViewBookAdapter) recyclerView.getAdapter()).getBookId(pos);
         launchActivity(this, ChapterActivity.class, BOOK_ID_INTENT_KEY, bookId);

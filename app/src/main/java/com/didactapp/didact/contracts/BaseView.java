@@ -1,10 +1,12 @@
 package com.didactapp.didact.contracts;
 
 
+/**
+ * base contract view interface
+ */
 public interface BaseView<T> {
 
     /* show/hide loading spinner */
-
     void showSpinner();
 
     void hideSpinner();

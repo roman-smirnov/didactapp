@@ -5,6 +5,9 @@ import com.didactapp.didact.entities.Section;
 import java.util.List;
 
 
+/**
+ * chapter view/presenter contract
+ */
 public interface SectionContract {
 
     interface View extends BaseView<Presenter> {

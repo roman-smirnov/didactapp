@@ -6,9 +6,10 @@ import android.arch.persistence.room.PrimaryKey;
 
 
 /**
- * Created by roman on 11/03/2018.
+ *
+ * entity model
+ *
  */
-
 @Entity
 public class UserSection {
     @PrimaryKey

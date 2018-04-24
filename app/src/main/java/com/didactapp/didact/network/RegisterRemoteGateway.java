@@ -11,9 +11,8 @@ import retrofit2.Call;
 import retrofit2.Response;
 
 /**
- * Created by roman on 12/03/2018.
+ * an interface that should be implemented by clients that ask for Data from server
  */
-
 public class RegisterRemoteGateway extends BaseRemoteGateway<AuthenticationKey, EncryptUser> {
     private static RegisterRemoteGateway INSTANCE = null;
 

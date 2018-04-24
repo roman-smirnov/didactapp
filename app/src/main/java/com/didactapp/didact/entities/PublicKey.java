@@ -1,5 +1,8 @@
 package com.didactapp.didact.entities;
 
+/**
+ * entity model
+ */
 public final class PublicKey {
     private String key;
 
