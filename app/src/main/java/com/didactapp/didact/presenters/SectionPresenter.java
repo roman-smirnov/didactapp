@@ -77,10 +77,10 @@ public final class SectionPresenter extends ViewModel implements SectionContract
 
     @Override
     public void networkConnected() {
-        if (view == null) {
+        if (view == null || chapterId == NO_SUCH_CHAPTER) {
             return;
         }
-        remoteGateway.getFromRemote(this);
+        remoteGateway.getFromRemote(this, chapterId);
     }
 
     @Override

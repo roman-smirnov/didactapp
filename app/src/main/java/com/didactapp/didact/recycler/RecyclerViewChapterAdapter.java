@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import com.didactapp.didact.R;
 import com.didactapp.didact.entities.Chapter;
+import com.didactapp.didact.utils.Constants;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -52,7 +53,7 @@ public class RecyclerViewChapterAdapter extends RecyclerView.Adapter<RecyclerVie
 
 //        TODO: find a way to move picasso out of here and remove global context variable
         Picasso.with(context)
-                .load(R.mipmap.ic_launcher)
+                .load(Constants.BASE_URL + chapterAtPosition.getThumbnailUrl())
                 .placeholder(R.drawable.ic_book) // show this image if not loaded yet
                 .error(R.drawable.ic_book)      // show this if error or image not exist
                 .into(holder.image);

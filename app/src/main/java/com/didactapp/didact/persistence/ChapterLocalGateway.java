@@ -80,6 +80,7 @@ public class ChapterLocalGateway implements LocalGateway<Chapter> {
             executor.diskIO().execute(new Runnable() {
                 @Override
                 public void run() {
+                    //                TODO: rewrite database insert list via single transaction
                     for (Chapter chapter : chapterList) {
                         try {
                             appDatabase.chapterDao().insert(chapter);

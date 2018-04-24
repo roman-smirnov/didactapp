@@ -10,7 +10,9 @@ import android.widget.TextView;
 import com.didactapp.didact.R;
 import com.didactapp.didact.contracts.SectionDetailContract;
 import com.didactapp.didact.entities.Section;
+import com.didactapp.didact.utils.Constants;
 import com.google.gson.Gson;
+import com.squareup.picasso.Picasso;
 
 import static com.didactapp.didact.utils.Constants.SECTION_ID_INTENT_KEY;
 
@@ -60,7 +62,13 @@ public class SectionDetailActivity extends BaseActivity implements SectionDetail
             this.explanation.setText(section.getExplanation());
         }
 
-        illustration.setImageDrawable(getDrawable(R.drawable.ic_book_logo));
+//        illustration.setImageDrawable(getDrawable(R.drawable.ic_book_logo));
+
+        Picasso.with(this)
+                .load(Constants.BASE_URL + section.getImageUrl())
+                .placeholder(R.drawable.ic_book) // show this image if not loaded yet
+                .error(R.drawable.ic_book)      // show this if error or image not exist
+                .into(illustration);
 
         if (section.getQuestion() != null
                 && section.getWrongAnswer1() != null
@@ -74,7 +82,6 @@ public class SectionDetailActivity extends BaseActivity implements SectionDetail
             answer3.setText(section.getWrongAnswer3());
             answer4.setText(section.getCorrectAnswer());
         }
-
     }
 
     @Override
